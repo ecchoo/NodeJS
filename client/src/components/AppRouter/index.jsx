@@ -3,7 +3,7 @@ import { routes } from "../../routes";
 import { HOME } from "../../constants/routes";
 
 
-const AppRouter = () => {
+export const AppRouter = () => {
     return(
         <Routes>
             {routes.map(({path, Component}) => 
@@ -13,5 +13,3 @@ const AppRouter = () => {
         </Routes>
     )
 }
-
-export default AppRouter;
