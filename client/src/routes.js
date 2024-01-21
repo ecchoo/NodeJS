@@ -1,4 +1,6 @@
-import { Home, Menu, Profile } from "./pages";
+import { Home } from '@/pages/Home'
+import { Menu } from '@/pages/Menu'
+import { Profile } from '@/pages/Profile'
 import { HOME, MENU, PROFILE } from "./constants/routes";
 
 export const routes = [

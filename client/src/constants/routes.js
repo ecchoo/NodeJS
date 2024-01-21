@@ -12,3 +12,4 @@
 export const HOME = '/'
 export const MENU = '/menu'
 export const PROFILE = '/profile'
+export const BASKET = '/basket'

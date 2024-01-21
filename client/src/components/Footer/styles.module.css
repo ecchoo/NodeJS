@@ -1,0 +1,35 @@
+.footer {
+    border-top: 1px solid;
+    border-image: linear-gradient(90deg, #FF9A24 7.53%, #945204 96.96%);
+    border-image-slice: 1;
+}
+
+/* .footer a {
+    color: #000;
+} */
+
+.container {
+    padding: 70px 0;
+    display: flex;
+    flex-direction: column;
+    row-gap: 15px;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer span {
+    margin-top: 15px;
+    font-family: 'Hot Pizza', sans-serif;
+    font-weight: 200;
+    font-size: 25px;
+}
+
+.navListFooter {
+    display: flex;
+    column-gap: 10px;
+}
+
+.navListFooter a {
+    font-size: 20px;
+    color: #ffff4c;
+}

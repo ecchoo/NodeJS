@@ -1,0 +1,17 @@
+.blockWhyWe{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 5px;
+    border-bottom: 1px solid;
+    border-image: linear-gradient(90deg, #945204  7.53%, #FF9A24 96.96%);
+    border-image-slice: 1;
+}
+
+.title{
+    font-family: 'Hot Pizza', sans-serif;
+    font-size: 30px;
+    font-weight: 300;
+    /* font-style: italic; */
+}

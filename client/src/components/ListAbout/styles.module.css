@@ -1,0 +1,32 @@
+.cardsAbout {
+    display: flex;
+    flex-direction: column;
+    row-gap: 30px;
+    padding: 0 30px;
+}
+
+.cardAbout {
+    display: flex;
+    padding: 20px;
+    border-radius: 20px;
+    align-items: center;
+    background-color: #262627;
+    width: 70%;
+    column-gap: 30px;
+}
+
+.photo {
+    width: 30%;
+}
+
+.text {
+    font-size: 25px;
+}
+
+.cardAbout:nth-child(2) {
+    align-self: end;
+}
+
+.cardAbout:not(:first-child) .photo {
+    border-radius: 50%;
+}

@@ -1,0 +1,150 @@
+.navigationBlock {
+    width: 200px;
+    display: block;
+    position: absolute;
+    z-index: 10;
+    position: fixed;
+}
+
+.navigationBlock.isOpen {
+    z-index: 15;
+}
+
+.hamburgerMenu {
+    width: 30px;
+    height: 30px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.bar {
+    width: 100%;
+    height: 5px;
+    border-radius: 40px;
+    background-color: #ffffff;
+    position: absolute;
+    transition: all 0.3s ease-out;
+}
+
+.bar.middleBar {
+    width: 70%;
+}
+
+.bar.upperBar {
+    transform: translateY(-10px);
+}
+
+.bar.lowerBar {
+    transform: translateY(10px);
+}
+
+.hamburgerMenu,
+.menuList {
+    cursor: pointer;
+    position: absolute;
+    z-index: 12;
+}
+
+.menuList {
+    padding-top: 30px;
+    display: none;
+    width: 150px;
+}
+
+.menuList>ul {
+    list-style: none;
+    margin-top: 20px;
+}
+
+.menuList>ul>li a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 15px;
+    display: block;
+    border-bottom: solid 1px rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+}
+
+.menuList>ul>li a:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+    /* animation: linkAnimation 0.2s ease-out; */
+}
+
+.menuBackground {
+    width: 500px;
+    height: 500px;
+    /* position: fixed; */
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 1;
+    background-color: #262627;
+    transform: translate(-100%, -100%);
+    transition: all 0.3s ease-out;
+    border-radius: 100%;
+}
+
+.navigationBlock.isOpen .bar.upperBar,
+.navigationBlock.isOpen .bar.lowerBar {
+    transform: translateY(0px);
+}
+
+.navigationBlock.isOpen .bar.upperBar {
+    transform: rotate(45deg);
+}
+
+.navigationBlock.isOpen .bar.lowerBar {
+    transform: rotate(-45deg);
+}
+
+.navigationBlock.isOpen .bar.middleBar {
+    transform: translateX(-1000px);
+}
+
+.navigationBlock.isOpen .menuList {
+    display: block;
+}
+
+.navigationBlock.isOpen .menuBackground {
+    animation: bubblePresent 0.3s ease-out;
+    transform: translate(-50%, -30%);
+}
+
+@keyframes linkAnimation {
+    0% {
+        /*transform: translateX(50px);*/
+        transform: scale(1.1);
+    }
+
+    80% {
+        /*transform: translateX(-10px);*/
+        transform: scale(0.9);
+    }
+
+    100% {
+        /*transform: translateX(0px);*/
+        transform: scale(1);
+    }
+}
+
+@keyframes bubblePresent {
+    0% {
+        transform: translate(-100%, -100%);
+    }
+
+    80% {
+        transform: translate(-45%, -25%);
+    }
+
+    100% {
+        transform: translate(-50%, -30%);
+    }
+}
+
+.author {
+    font-size: 20px;
+    color: #ffffff;
+    float: right;
+}

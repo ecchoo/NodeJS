@@ -1,0 +1,62 @@
+body {
+    overflow-x: hidden;
+}
+
+.container {
+    padding: 30px 50px;
+}
+
+.mainScreenRow {
+    padding-top: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    row-gap: 25px;
+}
+
+.offer {
+    /* font-family: 'Poppins', sans-serif; */
+    font-weight: 600;
+    font-size: 50px;
+    color: #ffff4c;
+    width: 700px;
+    line-height: 60px;
+}
+
+.descriptor {
+    font-family: 'Pilsen Plakat', sans-serif;
+    font-size: 25px;
+    width: 600px;
+}
+
+.linkOrder {
+    padding: 10px;
+    width: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30px;
+    color: #262627;
+    font-size: 20px;
+    font-weight: 600;
+    background: linear-gradient(269.02deg, #945204 12.74%, #FF9A24 100.39%);
+}
+
+.headerAbout {
+    text-align: center;
+    /* color: #D59042; */
+    color: #ffff4c;
+    font-size: 30px;
+    padding: 25px 0;
+}
+
+.whyWe {
+    display: flex;
+    justify-content: space-between;
+    padding: 30px 0;
+}

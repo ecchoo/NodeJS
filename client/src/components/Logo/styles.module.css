@@ -1,0 +1,16 @@
+.logo {
+    margin: auto;
+    border-radius: 50px;
+    /* padding-left: 55px; */
+}
+
+.logo a {
+    font-family: 'Hot Pizza', sans-serif;
+    font-weight: 200;
+    font-size: 30px;
+    color: #fff;
+    padding-bottom: 3px;
+    border-bottom: 1px solid;
+    border-image: linear-gradient(90deg, #FF9A24 7.53%, #945204 96.96%);
+    border-image-slice: 1;
+}
