@@ -1,0 +1,31 @@
+.container {
+    padding: 30px 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.listTypesFood {
+    display: flex;
+    column-gap: 20px;
+}
+
+.listTypesFood a {
+    color: #fff;
+    font-size: 20px;
+    font-family: 'Hot Pizza', sans-serif;
+    transition: color 0.2s ease-in-out;
+}
+
+.listTypesFood a:hover {
+    color: #FF9A24;
+}
+
+.products {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: space-between;
+    /* row-gap: 15px; */
+}
+

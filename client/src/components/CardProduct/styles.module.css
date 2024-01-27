@@ -1,0 +1,46 @@
+.cardProduct {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    row-gap: 10px;
+    align-items: center;
+    background-color: #262627;
+    border-radius: 30px;
+    transition: all ease-in-out 0.3s;
+    max-width: 275px;
+}
+
+.cardProduct:hover {
+    transform: translateY(-15px);
+}
+
+.titleProduct {
+    font-family: 'Hot Pizza', sans-serif;
+    font-size: 25px;
+}
+
+.cardFooter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    font-size: 18px;
+}
+
+.price {
+    font-family: 'Hot Pizza', sans-serif;
+    color: #ffff4c;
+}
+
+.linkChooseProduct {
+    background: linear-gradient(269.02deg, #945204 12.74%, #FF9A24 100.39%);
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    border-radius: 20px;
+    color: #000;
+    font-size: 20px;
+    font-weight: 500;
+}
