@@ -1,7 +1,8 @@
 import { Home } from '@/pages/Home'
 import { Menu } from '@/pages/Menu'
 import { Profile } from '@/pages/Profile'
-import { HOME, MENU, PROFILE } from "./constants/routes";
+import { BASKET, HOME, MENU, PROFILE } from "./constants/routes";
+import { Basket } from '@/pages/Basket';
 
 export const routes = [
     {
@@ -11,6 +12,10 @@ export const routes = [
     {
         path: MENU,
         Component: Menu
+    },
+    {
+        path: BASKET,
+        Component: Basket
     },
     {
         path: PROFILE,

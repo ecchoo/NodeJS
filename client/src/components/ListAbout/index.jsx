@@ -13,11 +13,14 @@ const CardAbout = ({ text, photo, dataAos }) => {
 export const ListAbout = ({ aboutItems }) => {
     return (
         <div className={styles.cardsAbout}>
-            {aboutItems.map(aboutItem => <CardAbout
-                text={aboutItem.text}
-                photo={aboutItem.photo}
-                dataAos={aboutItem.dataAos}
-            />)}
+            {aboutItems.map(aboutItem =>
+                <CardAbout
+                    key={aboutItem.id}
+                    text={aboutItem.text}
+                    photo={aboutItem.photo}
+                    dataAos={aboutItem.dataAos}
+                />
+            )}
         </div>
     )
 }

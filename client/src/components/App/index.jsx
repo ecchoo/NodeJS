@@ -3,15 +3,19 @@ import { AppRouter } from '@/components/AppRouter'
 import { Header } from "@/components/Header"
 import { Footer } from "@/components/Footer"
 import './app.css'
+import { Provider } from "react-redux"
+import { store } from "@/store"
 
 export const App = () => {
     return (
-        <BrowserRouter>
-            <Header />
-            <AppRouter>
+        <Provider store={store}>
+            <BrowserRouter>
+                <Header />
+                <AppRouter>
 
-            </AppRouter>
-            <Footer />
-        </BrowserRouter>
+                </AppRouter>
+                <Footer />
+            </BrowserRouter>
+        </Provider>
     )
 }
