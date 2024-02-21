@@ -4,15 +4,24 @@ import { strLimit } from "@/utils/strLimit";
 import MinusSvg from "../svg/MinusSvg";
 import PlusSvg from "../svg/PlusSvg";
 import { addToBasket } from '@/api/basket'
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addProduct } from "@/store/reducers";
+import { useAuth } from "@/hooks/useAuth";
 
 export const CardProduct = ({ product }) => {
     const dispatch = useDispatch()
     const [countProduct, setCountProduct] = useState(1);
 
+    const { isAuth } = useAuth()
+
+    const { user: { token } } = useSelector(state => state)
+
     const handleClickAddToBasket = async () => {
-        await addToBasket(product.id, countProduct)
+        if(!isAuth){
+            return console.log('Need login')
+        }
+
+        await addToBasket(token, product.id, countProduct)
         dispatch(addProduct({...product, count}))
     };
 

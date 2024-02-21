@@ -5,25 +5,41 @@ import { NavMenu } from '../NavMenu';
 import ProfileSvg from '../svg/ProfileSvg';
 import BasketSvg from '../svg/BasketSvg';
 import styles from './styles.module.css'
+import { useDispatch } from 'react-redux';
+import { setIsOpen } from '@/store/reducers/AuthModal';
+import { useAuth } from '@/hooks/useAuth';
 
 
 export const Header = () => {
-    return(
+    const dispatch = useDispatch()
+    const { isAuth } = useAuth()
+
+
+    const handleClickAuth = () => {
+        dispatch(setIsOpen(true))
+    }
+
+    return (
         <header>
             <div className={styles.container}>
                 <div className={styles.headerNav}>
                     <NavMenu />
-                    {/* <div className={styles.logo}>
-                        <Link to={HOME}>Pizzazz Pizza</Link> 
-                    </div> */}
-                    <Logo/>
+                    <Logo />
                     <div className={styles.profile}>
-                        <Link to={PROFILE}>
-                            <ProfileSvg/>
-                        </Link>
-                        <Link to={BASKET}>
-                            <BasketSvg/>
-                        </Link>
+                        {
+                            isAuth ? (
+                                <>
+                                    <Link to={PROFILE}>
+                                        <ProfileSvg />
+                                    </Link>
+                                    <Link to={BASKET}>
+                                        <BasketSvg />
+                                    </Link>
+                                </>
+                            ) : (
+                                <button onClick={handleClickAuth}><ProfileSvg /></button>
+                            )
+                        }
                     </div>
                 </div>
             </div>

@@ -1,0 +1,16 @@
+.container {
+    padding: 30px 50px;
+    display: flex;
+    flex-direction: column;
+}
+
+.personalData {
+    display: flex;
+    flex-direction: column;
+    row-gap: 15px;
+    width: 30%;
+}
+
+.header {
+    font-size: 25px;
+}

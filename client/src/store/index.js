@@ -1,18 +1,37 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import userReducer from './reducers/User'
 import basketReducer from './reducers/Basket'
+import authModalReducer from './reducers/AuthModal'
 import { productsAPI } from '@/api/products'
 import { basketAPI } from '@/api/basket'
 
+import { FLUSH, PAUSE, PERSIST, persistReducer, persistStore, PURGE, REGISTER, REHYDRATE } from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
+
+const persistConfig = {
+    key: 'root',
+    storage: storage,
+    whitelist: ['user'],
+}
+
+const rootReducer = combineReducers({
+    user: userReducer,
+    basket: basketReducer,
+    authModal: authModalReducer,
+    [productsAPI.reducerPath]: productsAPI.reducer,
+    [basketAPI.reducerPath]: basketAPI.reducer,
+})
+
+const persistedReducer = persistReducer(persistConfig, rootReducer)
+
 export const store = configureStore({
-    reducer: {
-        user: userReducer,
-        basket: basketReducer,
-        [productsAPI.reducerPath]: productsAPI.reducer,
-        [basketAPI.reducerPath]: basketAPI.reducer,
-    },
+    reducer: persistedReducer,
     middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware()
-            .concat(productsAPI.middleware)
-            .concat(basketAPI.middleware)
+        getDefaultMiddleware({
+            serializableCheck: {
+                ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+            },
+        }).concat(productsAPI.middleware).concat(basketAPI.middleware)
 });
+
+export const persistor = persistStore(store)

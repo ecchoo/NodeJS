@@ -1,15 +1,17 @@
+import React, { useEffect } from 'react';
 import { CardProductBasket } from '@/components/CardProductBasket'
 import { useFetchBasketQuery } from "@/api"
 import styles from './styles.module.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { setProducts } from '@/store/reducers'
-import { useEffect } from 'react'
 
 export const Basket = () => {
     const dispatch = useDispatch()
-    const { data: products, isLoading } = useFetchBasketQuery({ userId: 2 })
-    const { productsBasket } = useSelector(state => state.basket)
-    const totalPriceBasket = !isLoading && productsBasket.reduce((totalPrice, productBasket) => {
+
+    const { data: products, isLoading } = useFetchBasketQuery()
+    const { basket: { productsBasket } } = useSelector(state => state)
+
+    const totalPriceBasket = !isLoading && productsBasket && productsBasket.reduce((totalPrice, productBasket) => {
         return totalPrice + productBasket.price * productBasket.count
     }, 0)
 
@@ -17,9 +19,7 @@ export const Basket = () => {
         if (!isLoading) {
             dispatch(setProducts(products));
         }
-    }, [dispatch, isLoading, products]);
-
-    console.log(productsBasket)
+    }, []);
 
     return (
         <section>
@@ -27,7 +27,7 @@ export const Basket = () => {
                 <div className={styles.basket}>
                     <h1 className={styles.headerBasket}>Basket</h1>
                     <div className={styles.productsBasket}>
-                        {!isLoading && productsBasket.map(productBasket =>
+                        {!isLoading && productsBasket && productsBasket.map(productBasket =>
                             <CardProductBasket
                                 key={productBasket.id}
                                 productBasket={productBasket}

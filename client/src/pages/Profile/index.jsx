@@ -1,5 +1,13 @@
+import { FormAddress } from '@/components/FormAddress'
+import styles from './styles.module.css'
+
 export const Profile = () => {
     return (
-        <h1>Profile</h1>
+        <div className={styles.container}>
+            <div className={styles.personalData}>
+                <h1 className={styles.header}>Personal data</h1>
+                <FormAddress />
+            </div>
+        </div>
     )
 }

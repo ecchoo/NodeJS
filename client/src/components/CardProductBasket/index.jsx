@@ -2,7 +2,7 @@ import { useState } from "react"
 import { ProductCounter } from "@/components/ProductCounter"
 import DeleteSvg from "@/components/svg/DeleteSvg"
 import styles from './styles.module.css'
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import MinusSvg from "../svg/MinusSvg";
 import PlusSvg from "../svg/PlusSvg";
 import { changeCountProduct, deleteProduct } from "@/store/reducers"
@@ -11,12 +11,14 @@ import { deleteProductBasket, updateCount } from "@/api"
 export const CardProductBasket = ({ productBasket }) => {
     const dispatch = useDispatch()
 
+    const { user: { token } } = useSelector(state => state)
+
     const handleClickMinus = async () => {
         if(productBasket.count == 1){
             return
         }
 
-        await updateCount(productBasket.id, -1)
+        await updateCount(token, productBasket.id, -1)
         dispatch(changeCountProduct({ productId: productBasket.id, valueCount: -1 }))
     }
 
@@ -25,12 +27,12 @@ export const CardProductBasket = ({ productBasket }) => {
             return
         }
         
-        await updateCount(productBasket.id, 1)
+        await updateCount(token, productBasket.id, 1)
         dispatch(changeCountProduct({ productId: productBasket.id, valueCount: 1 }))
     }
 
     const handleClickDelete = async () => {
-        await deleteProductBasket(productBasket.id)
+        await deleteProductBasket(token, productBasket.id)
         dispatch(deleteProduct(productBasket.id))
     }
 
