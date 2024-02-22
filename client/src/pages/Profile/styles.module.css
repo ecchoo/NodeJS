@@ -14,3 +14,11 @@
 .header {
     font-size: 25px;
 }
+
+.buttonLogout {
+    padding: 10px 20px;
+    width: 30%;
+    border-radius: 20px;
+    background: linear-gradient(269.02deg, #945204 12.74%, #FF9A24 100.39%);
+    color: #262627;
+}

@@ -12,7 +12,6 @@ exports.register = async (req, res) => {
             return res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({ errors: errorsValidation.array() })
         }
 
-        
         const { name, password, email } = req.body
         const user = await registerUser({ name, password, email })
         
@@ -47,7 +46,6 @@ exports.login = async (req, res) => {
         const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '7d' })
 
         req.session.user = user
-        console.log('User id session', req.session.user.id)
         res.status(StatusCodes.OK).json({...user.dataValues, token})
     } catch (err) {
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: err.message })
@@ -55,11 +53,5 @@ exports.login = async (req, res) => {
 }
 
 exports.logout = async (req, res) => {
-    req.session.destroy((err) => {
-        if (err) {
-            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: 'Logout failed' });
-        }
-
-        res.status(StatusCodes.OK).json({ message: 'Logout successful' });
-    });
+    res.status(StatusCodes.OK).json({ message: 'Logout successful' });
 }

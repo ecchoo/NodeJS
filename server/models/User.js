@@ -4,6 +4,7 @@ module.exports = (sequelize, DataTypes) => {
     class User extends Model {
         static associate(models) {
             User.belongsToMany(models.Product, { through: 'Basket', foreignKey: 'userId' });
+            User.hasOne(models.Address, { foreignKey: 'userId' })
         }
     }
 

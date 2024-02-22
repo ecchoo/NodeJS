@@ -7,15 +7,14 @@
 
 .input:focus+.flyingPlaceholder,
 .input:not(:placeholder-shown)+.flyingPlaceholder {
-    top: -2vh;
+    top: -1.5vh;
     transform: translateY(-50%);
     opacity: 1;
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 400;
 }
 
-.checkOut,
-.btnSubmitAddress {
+.btnSubmit {
     align-self: flex-end;
     padding: 10px 30px;
     display: flex;
@@ -26,15 +25,14 @@
     color: #262627;
     transition: all .2s ease-in-out;
     width: 100%;
+    font-size: 18px;
 }
 
-.checkOut:hover,
-.btnSubmitAddress:hover {
+.btnSubmit:hover {
     transform: translateY(-10px);
 }
 
-.formAddress {
-    /* max-width: 30%; */
+.form {
     padding: 30px;
     border-radius: 10px;
     background-color: #fff;
@@ -44,7 +42,7 @@
     row-gap: 40px;
 }
 
-.headerFormAddress {
+.headerForm {
     align-self: self-start;
     color: #262627;
     font-size: 25px;
@@ -77,8 +75,9 @@
     transition: .3s ease-in-out;
 }
 
-.rowInputs {
-    display: flex;
-    /* justify-content: space-between; */
-    gap: 10px;
+.login {
+    font-size: 18px;
+    border-bottom: 1px solid;
+    border-image: linear-gradient(90deg, #FF9A24 7.53%, #945204 96.96%);
+    border-image-slice: 1;
 }

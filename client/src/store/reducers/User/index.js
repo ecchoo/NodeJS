@@ -17,10 +17,20 @@ const userSlice = createSlice({
             state.name = action.payload.name
             state.email = action.payload.email
             state.token = action.payload.token
+        },
+        setPersonalDataUser(state, action){
+            state.name = action.payload.name
+            state.email = action.payload.email
+        },
+        logoutUser(state) {
+            state.id = 0
+            state.name = null
+            state.email = null
+            state.token = null
         }
     }
 });
 
-export const { setUser } = userSlice.actions;
+export const { setUser, setPersonalDataUser, logoutUser } = userSlice.actions;
 
 export default userSlice.reducer;

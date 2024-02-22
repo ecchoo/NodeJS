@@ -32,7 +32,7 @@ exports.addProductToBasket = async (userId, productId, count) => {
 exports.changeCountProductBasket = async (userId, productId, value) => {
     const result = await Basket.increment('count', { by: value, where: { productId, userId } });
     const [changedRows] = result;
-    const changedRow = changedRows[0][0]; // Получаем первую измененную строку
+    const changedRow = changedRows[0][0];
     
     return changedRow
 }

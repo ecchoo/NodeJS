@@ -20,8 +20,12 @@ export const register = async ({ name, email, password, passwordConfirm }) => {
     return data
 }
 
-export const getUserSession = async () => {
-    const response = await axios.get(`${process.env.REACT_APP_API_URL}/auth/userSession`)
+export const logout = async (token) => {
+    const { data } = await axios.post(`${process.env.REACT_APP_API_URL}/auth/logout`, {}, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
 
-    return response
+    return data
 }

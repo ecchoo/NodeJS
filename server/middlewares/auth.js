@@ -13,7 +13,6 @@ exports.authenticateUser = async (req, res, next) => {
         req.userId = decoded.id
         next()
     } catch (error) {
-        console.log(error)
         return res.status(StatusCodes.FORBIDDEN).json({ error: 'Forbidden middleware' })
     }
 }

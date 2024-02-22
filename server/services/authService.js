@@ -15,7 +15,11 @@ exports.registerUser = async ({ name, password, email }) => {
 
 exports.loginUser = async ({ password, email }) => {
     const user = await getUserByEmail(email)
-    console.log(user)
+    
+    if(!user){
+        return null
+    }
+
     const isCorrectPassword = bcrypt.compare(password, user.password)
 
     if(isCorrectPassword){

@@ -9,7 +9,7 @@ export const Menu = ({ params }) => {
     console.log(category)
     const { data: products, isLoading } = useFetchProductsQuery({ category: category })
 
-    if(!isLoading){
+    if (!isLoading) {
         console.log(products)
     }
 
@@ -18,11 +18,11 @@ export const Menu = ({ params }) => {
             <section>
                 <div className={styles.container}>
                     <ul className={styles.listTypesFood}>
-                        <li><Link to={MENU}>All</Link></li>
-                        <li><Link to={MENU}>Pizza</Link></li>
-                        <li><Link to={MENU}>Drinks</Link></li>
-                        <li><Link to={MENU}>Sauces</Link></li>
-                        <li><Link to={MENU}>Desserts</Link></li>
+                        <li><Link to={MENU.replace(':category', 'all')}>All</Link></li>
+                        <li><Link to={MENU.replace(':category', 'pizza')}>Pizza</Link></li>
+                        <li><Link to={MENU.replace(':category', 'drinks')}>Drinks</Link></li>
+                        <li><Link to={MENU.replace(':category', 'sauces')}>Sauces</Link></li>
+                        <li><Link to={MENU.replace(':category', 'desserts')}>Desserts</Link></li>
                     </ul>
                 </div>
             </section>
@@ -30,7 +30,7 @@ export const Menu = ({ params }) => {
                 <div className={styles.container}>
                     <div className={styles.products}>
                         {!isLoading && products.map(product =>
-                            <CardProduct 
+                            <CardProduct
                                 key={product.id}
                                 product={product}
                             />

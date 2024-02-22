@@ -2,8 +2,7 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import userReducer from './reducers/User'
 import basketReducer from './reducers/Basket'
 import authModalReducer from './reducers/AuthModal'
-import { productsAPI } from '@/api/products'
-import { basketAPI } from '@/api/basket'
+import { basketAPI, productsAPI, profileAPI } from '@/api'
 
 import { FLUSH, PAUSE, PERSIST, persistReducer, persistStore, PURGE, REGISTER, REHYDRATE } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
@@ -20,6 +19,7 @@ const rootReducer = combineReducers({
     authModal: authModalReducer,
     [productsAPI.reducerPath]: productsAPI.reducer,
     [basketAPI.reducerPath]: basketAPI.reducer,
+    [profileAPI.reducerPath]: profileAPI.reducer
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
@@ -31,7 +31,7 @@ export const store = configureStore({
             serializableCheck: {
                 ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
             },
-        }).concat(productsAPI.middleware).concat(basketAPI.middleware)
+        }).concat(productsAPI.middleware).concat(basketAPI.middleware).concat(profileAPI.middleware)
 });
 
 export const persistor = persistStore(store)
