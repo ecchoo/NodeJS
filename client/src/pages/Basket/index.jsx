@@ -3,7 +3,7 @@ import { CardBasket } from '@/components/CardBasket'
 import { useFetchBasketQuery } from "@/api"
 import styles from './styles.module.css'
 import { useDispatch, useSelector } from 'react-redux'
-import { setProducts } from '@/store/reducers'
+import { setProductsBasket } from '@/store/reducers'
 
 export const Basket = () => {
     const dispatch = useDispatch()
@@ -17,7 +17,7 @@ export const Basket = () => {
 
     useEffect(() => {
         if (!isLoading) {
-            dispatch(setProducts(products));
+            dispatch(setProductsBasket(products));
         }
     }, []);
 

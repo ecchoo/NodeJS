@@ -5,7 +5,7 @@ import MinusSvg from "../svg/MinusSvg";
 import PlusSvg from "../svg/PlusSvg";
 import { addToBasket } from '@/api/basket'
 import { useDispatch, useSelector } from "react-redux";
-import { addProduct } from "@/store/reducers";
+import { addProductToBasket } from "@/store/reducers";
 import { useAuth } from "@/hooks/useAuth";
 
 export const CardProduct = ({ product }) => {
@@ -22,7 +22,7 @@ export const CardProduct = ({ product }) => {
         }
 
         await addToBasket(token, product.id, countProduct)
-        dispatch(addProduct({...product, count}))
+        dispatch(addProductToBasket({...product, count}))
     };
 
     const handleClickPlus = () => {

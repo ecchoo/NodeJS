@@ -7,6 +7,9 @@ import { store, persistor } from "@/store"
 import { AuthModal } from "../AuthModal"
 import './styles.css'
 import { PersistGate } from "redux-persist/integration/react"
+import { ModalCreateProduct } from "../ModalCreateProduct"
+import { ModalUpdateProduct } from "../ModalUpdateProduct"
+import { ModalConfirmDeleteProduct } from "../ModalConfirmDeleteProduct"
 
 export const App = () => {
     return (
@@ -14,6 +17,11 @@ export const App = () => {
             <PersistGate persistor={persistor}>
                 <BrowserRouter>
                     <AuthModal />
+
+                    <ModalCreateProduct />
+                    <ModalUpdateProduct />
+                    <ModalConfirmDeleteProduct />                    
+
                     <Header />
                     <AppRouter>
                         

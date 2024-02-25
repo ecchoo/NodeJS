@@ -8,15 +8,14 @@ const basketSlice = createSlice({
     name: 'basket',
     initialState: initialState,
     reducers: {
-        setProducts(state, action) {
+        setProductsBasket(state, action) {
             state.productsBasket = action.payload
         },
         changeCountProduct(state, action) {
-            state.productsBasket.forEach(product => console.log(product.id))
             const productIndex = state.productsBasket.findIndex(product => product.id == action.payload.productId)
             state.productsBasket[productIndex].count += action.payload.valueCount
         },
-        addProduct(state, action) {
+        addProductToBasket(state, action) {
             state.productsBasket.push(action.payload)
         },
         deleteProduct(state, action) {
@@ -25,6 +24,6 @@ const basketSlice = createSlice({
     }
 });
 
-export const { setProducts, changeCountProduct, addProduct, deleteProduct } = basketSlice.actions;
+export const { setProductsBasket, changeCountProduct, addProductToBasket, deleteProduct } = basketSlice.actions;
 
 export default basketSlice.reducer;

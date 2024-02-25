@@ -21,7 +21,7 @@ export const NavMenu = ()=> {
             <div className={styles.menuList}>
                 <ul>
                     <li> <Link to={HOME}>Home</Link></li>
-                    <li> <Link to={MENU}>Menu</Link></li>
+                    <li> <Link to={MENU.replace(':category', 'all')}>Menu</Link></li>
                     <li> <Link to={BASKET}>Basket</Link></li>
                     <li> <Link to={PROFILE}>Profile</Link></li>
                 </ul>
