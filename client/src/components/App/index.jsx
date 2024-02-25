@@ -10,6 +10,9 @@ import { PersistGate } from "redux-persist/integration/react"
 import { ModalCreateProduct } from "../ModalCreateProduct"
 import { ModalUpdateProduct } from "../ModalUpdateProduct"
 import { ModalConfirmDeleteProduct } from "../ModalConfirmDeleteProduct"
+import { ModalCreateCategory } from "../ModalCreateCategory"
+import { ModalUpdateCategory } from "../ModalUpdateCategory"
+import { ModalConfirmDeleteCategory } from "../ModalConfirmDeleteCategory"
 
 export const App = () => {
     return (
@@ -20,7 +23,11 @@ export const App = () => {
 
                     <ModalCreateProduct />
                     <ModalUpdateProduct />
-                    <ModalConfirmDeleteProduct />                    
+                    <ModalConfirmDeleteProduct />        
+
+                    <ModalCreateCategory />
+                    <ModalUpdateCategory />
+                    <ModalConfirmDeleteCategory />
 
                     <Header />
                     <AppRouter>

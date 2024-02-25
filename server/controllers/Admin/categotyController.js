@@ -1,11 +1,12 @@
 const { StatusCodes } = require('http-status-codes')
-const { getAllProducts, createProduct, updateProduct, deleteProduct, getProductById } = require('../../repositories/productRepository')
+const { getAllCategories, getCategoryById, createCategory, updateCategory, deleteCategory } = require('../../repositories/categoryRepository')
 const { validationResult } = require('express-validator')
 
 exports.list = async (req, res) => {
     try {
-        const products = await getAllProducts()
-        res.status(StatusCodes.OK).json(products)
+        const categories = await getAllCategories()
+
+        res.status(StatusCodes.OK).json(categories)
     } catch (err) {
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: err.message })
     }
@@ -13,8 +14,9 @@ exports.list = async (req, res) => {
 
 exports.index = async (req, res) => {
     try {
-        const product = await getProductById(req.query.id)
-        res.status(StatusCodes.OK).json(product)
+        const category = await getCategoryById(req.query.id)
+
+        res.status(StatusCodes.OK).json(category)
     } catch (err) {
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: err.message })
     }
@@ -27,17 +29,11 @@ exports.create = async (req, res) => {
             res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({ errors: errorsValidation.array() })
         }
 
-        const {
-            name,
-            price,
-            composition,
-            photo,
-            category
-        } = req.body
+        const { name } = req.body
 
-        const newProduct = await createProduct({ name, price, composition, photo, category })
+        const newCategory = await createCategory({ name })
 
-        res.status(StatusCodes.CREATED).json(newProduct)
+        res.status(StatusCodes.CREATED).json(newCategory)
     } catch (err) {
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: err.message })
     }
@@ -50,16 +46,9 @@ exports.update = async (req, res) => {
             res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({ errors: errorsValidation.array() })
         }
 
-        const {
-            id,
-            name,
-            price,
-            composition,
-            photo,
-            category
-        } = req.body
+        const { id, name } = req.body
 
-        const updatedProduct = await updateProduct({ id, name, price, composition, photo, category })
+        const updatedProduct = await updateCategory({ id, name })
 
         res.status(StatusCodes.OK).json(updatedProduct)
     } catch (err) {
@@ -69,10 +58,11 @@ exports.update = async (req, res) => {
 
 exports.remove = async (req, res) => {
     try {
-        const { productId } = req.body
+        const { categoryId } = req.body
 
-        const removedProduct = await deleteProduct(productId)
-        res.status(StatusCodes.NO_CONTENT).json(removedProduct)
+        const removedCategory = await deleteCategory(categoryId)
+        
+        res.status(StatusCodes.NO_CONTENT).json(removedCategory)
     } catch (err) {
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: err.message })
     }

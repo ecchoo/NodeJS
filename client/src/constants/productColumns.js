@@ -8,7 +8,6 @@ export const PRODUCT_COLUMNS = [
         title: 'Price',
         dataIndex: 'price',
         key: 'price',
-        // defaultSortOrder: 'descend',
         sorter: (a, b) => a.price - b.price,
     },
     {

@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    products: []
+    products: [],
+    categories: []
 };
 
 const adminProductsSlice = createSlice({
@@ -20,10 +21,33 @@ const adminProductsSlice = createSlice({
         },
         removeProduct(state, action) {
             state.products = state.products.filter(product => product.id != action.payload)
+        },
+
+        setCategories(state, action) {
+            state.categories = action.payload
+        },
+        addCategory(state, action) {
+            state.categories.push(action.payload)
+        },
+        editCategory(state, action) {
+            const categoryIndex = state.categories.findIndex(category => category.id == action.payload.id)
+            state.categories[categoryIndex] = action.payload
+        },
+        removeCategory(state, action) {
+            state.categories = state.categories.filter(category => category.id != action.payload)
         }
     }
 });
 
-export const { setProducts, addProduct, editProduct, removeProduct } = adminProductsSlice.actions;
+export const { 
+    setProducts, 
+    addProduct, 
+    editProduct, 
+    removeProduct,
+    setCategories, 
+    addCategory, 
+    editCategory, 
+    removeCategory 
+} = adminProductsSlice.actions;
 
 export default adminProductsSlice.reducer;
