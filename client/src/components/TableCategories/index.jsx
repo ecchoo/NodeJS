@@ -17,10 +17,10 @@ export const TableCategories = () => {
     const { data, isLoading } = useFetchAdminCategoriesQuery()
 
     useEffect(() => {
-        if (!isLoading && categories) {
+        if (!isLoading && !categories.length) {
             dispatch(setCategories(data))
         }
-    }, [data, isLoading])
+    }, [isLoading])
 
     const tableColumns = [
         ...CATEGORY_COLUMNS,

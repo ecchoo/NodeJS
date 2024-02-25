@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import axios from 'axios'
 
-export const adminProductsAPI = createApi({
+export const adminProductsApi = createApi({
     reducerPath: 'productsApi',
     baseQuery: fetchBaseQuery({ baseUrl: process.env.REACT_APP_API_URL }),
     endpoints: (builder) => ({
@@ -20,7 +20,7 @@ export const adminProductsAPI = createApi({
     }),
 })
 
-export const { useFetchAdminProductsQuery, useFetchAdminProductByIdQuery } = adminProductsAPI
+export const { useFetchAdminProductsQuery, useFetchAdminProductByIdQuery } = adminProductsApi
 
 export const createProduct = async (product) => {
     const { data } = await axios.post(`${process.env.REACT_APP_API_URL}/admin/product/create`, {

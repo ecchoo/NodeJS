@@ -27,9 +27,9 @@ export const ModalCreateCategory = () => {
         e.preventDefault()
 
         try {
-            await createCategory(category)
+            const { id } = await createCategory(category)
             dispatch(setIsOpenModalCreateCategory(false))
-            dispatch(addCategory(category))
+            dispatch(addCategory({ ...category, id }))
         } catch (err) {
             console.log(err)
         }

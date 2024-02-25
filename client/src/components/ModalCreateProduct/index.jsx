@@ -31,10 +31,11 @@ export const ModalCreateProduct = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
+        
         try {
-            await createProduct(product)
+            const { id } = await createProduct(product)
             dispatch(setIsOpenModalCreateProduct(false))
-            dispatch(addProduct(product))
+            dispatch(addProduct({ ...product, id }))
         } catch (err) {
             console.log(err)
         }

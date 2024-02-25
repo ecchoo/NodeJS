@@ -13,15 +13,15 @@ import styles from './styles.module.css'
 export const TableProducts = () => {
     const dispatch = useDispatch()
     const { admin: { products } } = useSelector(state => state)
-    console.log(products)
+    // console.log(products)
 
     const { data, isLoading } = useFetchAdminProductsQuery()
 
     useEffect(() => {
-        if(!isLoading && products){
+        if(!isLoading && !products.length){
             dispatch(setProducts(data))
         }
-    }, [data, isLoading])
+    }, [isLoading])
 
     const tableColumns = [
         ...PRODUCT_COLUMNS,

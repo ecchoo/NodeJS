@@ -9,7 +9,14 @@ import modalCreateCategoryReducer from './reducers/ModalCreateCategory'
 import modalUpdateCategoryReducer from './reducers/ModalUpdateCategory'
 import modalConfirmDeleteCategoryReducer from './reducers/ModalConfirmDeleteCategory'
 import adminReducer from './reducers/Admin'
-import { basketAPI, productsAPI, profileAPI, adminProductsAPI, adminCategoriesAPI } from '@/api'
+import { 
+    basketApi, 
+    productsApi, 
+    profileApi, 
+    adminProductsApi, 
+    adminCategoriesApi, 
+    adminUsersApi,
+} from '@/api'
 
 import { FLUSH, PAUSE, PERSIST, persistReducer, persistStore, PURGE, REGISTER, REHYDRATE } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
@@ -31,11 +38,12 @@ const rootReducer = combineReducers({
     modalUpdateCategory: modalUpdateCategoryReducer,
     modalConfirmDeleteCategory: modalConfirmDeleteCategoryReducer,
     admin: adminReducer,
-    [productsAPI.reducerPath]: productsAPI.reducer,
-    [basketAPI.reducerPath]: basketAPI.reducer,
-    [profileAPI.reducerPath]: profileAPI.reducer,
-    [adminProductsAPI.reducerPath]: adminProductsAPI.reducer,
-    [adminCategoriesAPI.reducerPath]: adminCategoriesAPI.reducer,
+    [productsApi.reducerPath]: productsApi.reducer,
+    [basketApi.reducerPath]: basketApi.reducer,
+    [profileApi.reducerPath]: profileApi.reducer,
+    [adminProductsApi.reducerPath]: adminProductsApi.reducer,
+    [adminCategoriesApi.reducerPath]: adminCategoriesApi.reducer,
+    [adminUsersApi.reducerPath]: adminUsersApi.reducer,
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
@@ -48,11 +56,12 @@ export const store = configureStore({
                 ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
             },
         })
-        .concat(productsAPI.middleware)
-        .concat(basketAPI.middleware)
-        .concat(profileAPI.middleware)
-        .concat(adminProductsAPI.middleware)
-        .concat(adminCategoriesAPI.middleware)
+        .concat(productsApi.middleware)
+        .concat(basketApi.middleware)
+        .concat(profileApi.middleware)
+        .concat(adminProductsApi.middleware)
+        .concat(adminCategoriesApi.middleware)
+        .concat(adminUsersApi.middleware)
 });
 
 export const persistor = persistStore(store)

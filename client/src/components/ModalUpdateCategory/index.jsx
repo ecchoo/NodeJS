@@ -8,14 +8,22 @@ import { setIsOpenModalUpdateCategory } from "@/store/reducers/ModalUpdateCatego
 
 export const ModalUpdateCategory = () => {
     const dispatch = useDispatch()
-    const { modalUpdateCategory: { isOpen, categoryId } } = useSelector(state => state)
-    const { data: initialCategory, isLoading } = useFetchAdminCategoryByIdQuery({ id: categoryId })
+    const {
+        modalUpdateCategory: {
+            isOpen, categoryId
+        },
+        admin: {
+            categories
+        }
+    } = useSelector(state => state)
+
+    const initialCategory = categories.find(category => category.id === categoryId)
 
     useEffect(() => {
-        if (!isLoading && initialCategory) {
+        if (initialCategory) {
             setCategory(initialCategory);
         }
-    }, [initialCategory, isLoading]);
+    }, [initialCategory]);
 
     const [category, setCategory] = useState()
 
@@ -44,7 +52,7 @@ export const ModalUpdateCategory = () => {
 
     return (
         <Modal open={isOpen} onCancel={handleCancel} footer={null}>
-            {
+            {/* {
                 !isLoading ? (
                     <form className={styles.form} onSubmit={handleSubmit}>
                         <h1 className={styles.headerForm}>Update category</h1>
@@ -59,7 +67,18 @@ export const ModalUpdateCategory = () => {
                 ) : (
                     <span>Loading</span>
                 )
-            }
+            } */}
+
+            <form className={styles.form} onSubmit={handleSubmit}>
+                <h1 className={styles.headerForm}>Update category</h1>
+                <div className={styles.inputs}>
+                    <div className={styles.inputBox}>
+                        <input value={category?.name} onChange={handleChangeInput} type="text" name="name" id="name" className={styles.input} placeholder=" " />
+                        <label htmlFor="name" className={styles.flyingPlaceholder}>Name</label>
+                    </div>
+                </div>
+                <button type="submit" className={styles.btnSubmit}>Submit</button>
+            </form>
         </Modal>
     )
 }

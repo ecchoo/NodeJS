@@ -15,6 +15,8 @@ const {
     remove: removeCategory
 } = require('../controllers/Admin/categotyController')
 
+const { list: listUsers } = require('../controllers/Admin/userController')
+
 const { createProductValidation } = require('../requests/Admin/Product/create')
 const { updateProductValidation } = require('../requests/Admin/Product/update')
 
@@ -34,5 +36,7 @@ adminRouter.get('/category/', indexCategory)
 adminRouter.post('/category/create', createCategoryValidation(), createCategory)
 adminRouter.put('/category/update', updateCategoryValidation(), updateCategory)
 adminRouter.delete('/category/delete', removeCategory)
+
+adminRouter.get('/users', listUsers)
 
 module.exports = adminRouter

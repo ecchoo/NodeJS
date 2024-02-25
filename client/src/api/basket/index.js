@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import axios from 'axios'
 
-export const basketAPI = createApi({
+export const basketApi = createApi({
     reducerPath: 'basketApi',
     baseQuery: fetchBaseQuery({
         baseUrl: process.env.REACT_APP_API_URL,
@@ -21,6 +21,7 @@ export const basketAPI = createApi({
     }),
 })
 
+export const { useFetchBasketQuery } = basketApi
 
 export const addToBasket = async (token, productId, count) => {
     const { data } = await axios.post(`${process.env.REACT_APP_API_URL}/basket/add`, {
@@ -60,5 +61,3 @@ export const deleteProductBasket = async (token, productId) => {
 
     return data
 }
-
-export const { useFetchBasketQuery } = basketAPI
