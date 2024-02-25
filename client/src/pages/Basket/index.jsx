@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { CardProductBasket } from '@/components/CardProductBasket'
+import { CardBasket } from '@/components/CardBasket'
 import { useFetchBasketQuery } from "@/api"
 import styles from './styles.module.css'
 import { useDispatch, useSelector } from 'react-redux'
@@ -28,7 +28,7 @@ export const Basket = () => {
                     <h1 className={styles.headerBasket}>Basket</h1>
                     <div className={styles.productsBasket}>
                         {!isLoading && productsBasket && productsBasket.map(productBasket =>
-                            <CardProductBasket
+                            <CardBasket
                                 key={productBasket.id}
                                 productBasket={productBasket}
                             />

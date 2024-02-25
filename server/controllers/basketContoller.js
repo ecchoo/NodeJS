@@ -1,11 +1,10 @@
 const { StatusCodes } = require('http-status-codes');
 const { getBasketByUserId, changeCountProductBasket, removeProductBasket } = require('../repositories/basketRepository');
-const { addToBasket } = require('../services/basketService');
+const { addToBasket, getBasket } = require('../services/basketService');
 
 exports.index = async (req, res) => {
     try {
-        const userId = req.userId
-        const basket = await getBasketByUserId(userId)
+        const basket = await getBasket(req.userId)
 
         res.status(StatusCodes.OK).json(basket)
     } catch (err) {

@@ -3,11 +3,10 @@ import styles from './styles.module.css';
 import { createAddress, updateAddress, useFetchProfileQuery } from '@/api';
 import { useSelector } from 'react-redux';
 
-export const FormAddress = () => {
-    const { data, isLoading } = useFetchProfileQuery()
+export const FormAddress = ({ initialAddress }) => {
     const { user: { token } } = useSelector(state => state)
 
-    const [address, setAddress] = useState(data?.address || {
+    const [address, setAddress] = useState(initialAddress || {
         city: null,
         street: null,
         numberHouse: null,

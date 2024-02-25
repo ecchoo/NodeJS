@@ -11,8 +11,23 @@
     width: 30%;
 }
 
-.header {
+.sectionsProfile {
+    display: flex;
+    gap: 15px;
+}
+
+.headerSectionProfile {
     font-size: 25px;
+    transition: color 0.2s ease-in-out;
+}
+
+.headerSectionProfile.active {
+    color: #FF9A24;
+}
+
+.headerSectionProfile:hover {
+    cursor: pointer;
+    color: #FF9A24;
 }
 
 .buttonLogout {
@@ -21,4 +36,9 @@
     border-radius: 20px;
     background: linear-gradient(269.02deg, #945204 12.74%, #FF9A24 100.39%);
     color: #262627;
+}
+
+.deliveries{
+    margin-top: 20px;
+    width: 60%;
 }

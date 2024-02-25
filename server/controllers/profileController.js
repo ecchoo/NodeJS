@@ -2,14 +2,13 @@ const { validationResult } = require("express-validator")
 const { updateUserAddress, createUserAddress } = require("../repositories/addressRepository")
 const { getUserById, updatePersonalDataUser } = require("../repositories/userRepository")
 const { StatusCodes } = require("http-status-codes")
+const { getUserInfo } = require("../services/profileService")
 
 exports.index = async (req, res) => {
     try {
-        const user = await getUserById(req.userId)
-        console.log(req.userId)
-        const address = await user.getAddress()
+        const user = await getUserInfo(req.userId)
 
-        res.status(StatusCodes.OK).json({ ...user.dataValues, address })
+        res.status(StatusCodes.OK).json(user)
     } catch (err) {
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: err.message })
     }

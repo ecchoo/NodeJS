@@ -1,0 +1,88 @@
+.productDelivery {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 15px;
+}
+
+.photo {
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    width: 80px;
+    border-radius: 5px;
+}
+
+.title {
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.price {
+    font-family: 'Poppins', sans-serif;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    color: #262627;
+    font-weight: 700;
+    padding: 10px;
+}
+
+.btnDelete {
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.svgDelete {
+    transform: scale(.8);
+    transition: all .15s ease-in-out;
+}
+
+.btnDelete:hover .svgDelete {
+    transform: scale(1);
+}
+
+.btnDelete:hover .svgDelete path {
+    stroke-width: 2.5;
+}
+
+.count {
+    display: flex;
+    column-gap: 12px;
+}
+
+.minus,
+.plus {
+    cursor: pointer;
+}
+
+rect {
+    transition: all 0.2s ease-in-out;
+}
+
+.minus:hover rect:first-child {
+    fill: #fff;
+}
+
+.minus:hover rect:last-child {
+    stroke: #fff;
+}
+
+.plus:hover rect:nth-child(-n+2) {
+    fill: #fff;
+}
+
+.plus:hover rect:last-child {
+    stroke: #fff;
+}
