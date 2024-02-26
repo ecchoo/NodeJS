@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import axios from 'axios'
 
 export const adminCategoriesApi = createApi({
-    reducerPath: 'categoriesApi',
+    reducerPath: 'adminCategoriesApi',
     baseQuery: fetchBaseQuery({ baseUrl: process.env.REACT_APP_API_URL }),
     endpoints: (builder) => ({
         fetchAdminCategories: builder.query({

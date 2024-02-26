@@ -18,7 +18,6 @@ export const ModalUpdateProduct = () => {
     } = useSelector(state => state)
 
     const initialProduct = products.find(product => product.id === productId)
-    console.log('Update initial', initialProduct)
 
     useEffect(() => {
         if (initialProduct) {

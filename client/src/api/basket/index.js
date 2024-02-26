@@ -1,27 +1,37 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import axios from 'axios'
 
-export const basketApi = createApi({
-    reducerPath: 'basketApi',
-    baseQuery: fetchBaseQuery({
-        baseUrl: process.env.REACT_APP_API_URL,
-        prepareHeaders: (headers, { getState }) => {
-            headers.set('Content-Type', 'application/json');
-            headers.set('Authorization', `Bearer ${getState().user.token}`);
-            return headers;
-        },
-    }),
-    endpoints: (builder) => ({
-        fetchBasket: builder.query({
-            query: (params) => ({
-                url: '/basket/',
-                params: params
-            }),
-        })
-    }),
-})
+// export const basketApi = createApi({
+//     reducerPath: 'basketApi',
+//     baseQuery: fetchBaseQuery({
+//         baseUrl: process.env.REACT_APP_API_URL,
+//         prepareHeaders: (headers, { getState }) => {
+//             headers.set('Content-Type', 'application/json');
+//             headers.set('Authorization', `Bearer ${getState().user.token}`);
+//             return headers;
+//         },
+//     }),
+//     endpoints: (builder) => ({
+//         fetchBasket: builder.query({
+//             query: (params) => ({
+//                 url: '/basket/',
+//                 params: params
+//             }),
+//         })
+//     }),
+// })
 
-export const { useFetchBasketQuery } = basketApi
+// export const { useFetchBasketQuery } = basketApi
+
+export const getBasket = async (token) => {
+    const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/basket`, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
+
+    return data
+}
 
 export const addToBasket = async (token, productId, count) => {
     const { data } = await axios.post(`${process.env.REACT_APP_API_URL}/basket/add`, {

@@ -10,8 +10,8 @@ import modalUpdateCategoryReducer from './reducers/ModalUpdateCategory'
 import modalConfirmDeleteCategoryReducer from './reducers/ModalConfirmDeleteCategory'
 import adminReducer from './reducers/Admin'
 import { 
-    basketApi, 
-    productsApi, 
+    // basketApi, 
+    productsApi,
     profileApi, 
     adminProductsApi, 
     adminCategoriesApi, 
@@ -39,7 +39,7 @@ const rootReducer = combineReducers({
     modalConfirmDeleteCategory: modalConfirmDeleteCategoryReducer,
     admin: adminReducer,
     [productsApi.reducerPath]: productsApi.reducer,
-    [basketApi.reducerPath]: basketApi.reducer,
+    // [basketApi.reducerPath]: basketApi.reducer,
     [profileApi.reducerPath]: profileApi.reducer,
     [adminProductsApi.reducerPath]: adminProductsApi.reducer,
     [adminCategoriesApi.reducerPath]: adminCategoriesApi.reducer,
@@ -57,7 +57,7 @@ export const store = configureStore({
             },
         })
         .concat(productsApi.middleware)
-        .concat(basketApi.middleware)
+        // .concat(basketApi.middleware)
         .concat(profileApi.middleware)
         .concat(adminProductsApi.middleware)
         .concat(adminCategoriesApi.middleware)
