@@ -66,9 +66,6 @@ export const Profile = () => {
                                 </div>
                             )
                         }
-                        {/* <div className={styles.personalData}>
-        
-                        </div> */}
                     </div>
                 ) : (
                     <span>Loading...</span>

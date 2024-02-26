@@ -1,9 +1,9 @@
 const express = require('express')
 const { login, register, logout } = require('../controllers/authController')
-const { registerValidation, loginValidation } = require('../requests/auth')
 const { guestUser } = require('../middlewares/guest')
 const { authenticateUser } = require('../middlewares/auth')
-
+const { registerValidation } = require('../requests/Auth/register')
+const { loginValidation } = require('../requests/Auth/login')
 
 const authRouter = express.Router()
 

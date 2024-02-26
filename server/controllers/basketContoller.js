@@ -23,7 +23,6 @@ exports.store = async (req, res) => {
     } catch (err) {
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: err.message })
     }
-
 }
 
 exports.update = async (req, res) => {

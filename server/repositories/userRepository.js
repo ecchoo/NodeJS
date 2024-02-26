@@ -1,5 +1,9 @@
 const { User } = require('../models')
 
+exports.getAllUsers = async () => {
+    return await User.findAll()
+}
+
 exports.getUserByEmail = async (email) => {
     return await User.findOne({ where: { email: email } })
 }

@@ -3,17 +3,33 @@ import styles from './styles.module.css'
 import { updatePersonalData } from '@/api'
 import { useDispatch, useSelector } from 'react-redux'
 import { setPersonalDataUser } from '@/store/reducers'
+import { StatusCodes } from 'http-status-codes'
+import { convertErrorsValidation } from '@/utils/convertErrorsValidation'
+import { Input } from '../Input'
 
 export const FormPersonalData = () => {
     const dispatch = useDispatch()
     const { user: { token, name: initialName, email: initialEmail } } = useSelector(state => state)
 
-    const [personalData, setPersonalData] = useState({ name: initialName, email: initialEmail })
-    
+    const [personalData, setPersonalData] = useState({
+        name: initialName,
+        email: initialEmail
+    })
+
+    const [errorsValidation, setErrorsValidation] = useState()
+
     const handleSubmit = async (e) => {
         e.preventDefault()
-        await updatePersonalData({ ...personalData, token })
-        dispatch(setPersonalDataUser(personalData))
+
+        try {
+            await updatePersonalData({ ...personalData, token })
+            dispatch(setPersonalDataUser(personalData))
+        } catch (err) {
+            if (err.response.status === StatusCodes.UNPROCESSABLE_ENTITY) {
+                const convertedErrors = convertErrorsValidation(err.response.data.errors)
+                setErrorsValidation(convertedErrors)
+            }
+        }
     }
 
     const handleChangeInput = (e) => {
@@ -22,19 +38,27 @@ export const FormPersonalData = () => {
             [e.target.name]: e.target.value
         })
     }
-    
+
     return (
         <form className={styles.form} onSubmit={handleSubmit}>
             <h1 className={styles.headerForm}>Personal data</h1>
             <div className={styles.inputs}>
-                <div className={styles.inputBox}>
-                    <input value={personalData.name} onChange={handleChangeInput} type="text" name="name" id="name" className={styles.input} placeholder=" " />
-                    <label htmlFor="name" className={styles.flyingPlaceholder}>Name</label>
-                </div>
-                <div className={styles.inputBox}>
-                    <input value={personalData.email} onChange={handleChangeInput} type="email" name="email" id="email" className={styles.input} placeholder=" " />
-                    <label htmlFor="email" className={styles.flyingPlaceholder}>Email</label>
-                </div>
+                <Input
+                    type='email'
+                    name='email'
+                    placeholder='Email'
+                    value={personalData.email}
+                    onChange={handleChangeInput}
+                    errorValidation={errorsValidation?.email}
+                />
+                <Input
+                    type='text'
+                    name='name'
+                    placeholder='Name'
+                    value={personalData.name}
+                    onChange={handleChangeInput}
+                    errorValidation={errorsValidation?.name}
+                />
             </div>
             <button className={styles.btnSubmit} type="submit">Submit</button>
         </form>

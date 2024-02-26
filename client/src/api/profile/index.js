@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import axios from "axios";
 
-export const profileAPI = createApi({
+export const profileApi = createApi({
     reducerPath: 'profileApi',
     baseQuery: fetchBaseQuery({
         baseUrl: process.env.REACT_APP_API_URL,
@@ -20,6 +20,8 @@ export const profileAPI = createApi({
         })
     })
 })
+
+export const { useFetchProfileQuery } = profileApi
 
 export const createAddress = async ({
     token,
@@ -90,5 +92,3 @@ export const updatePersonalData = async ({ token, name, email }) => {
 
     return data
 }
-
-export const { useFetchProfileQuery } = profileAPI

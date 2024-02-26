@@ -7,7 +7,7 @@
 
 .input:focus+.flyingPlaceholder,
 .input:not(:placeholder-shown)+.flyingPlaceholder {
-    top: -1.5vh;
+    top: -1vh;
     transform: translateY(-50%);
     opacity: 1;
     font-size: 15px;
@@ -80,4 +80,9 @@
     border-bottom: 1px solid;
     border-image: linear-gradient(90deg, #FF9A24 7.53%, #945204 96.96%);
     border-image-slice: 1;
+}
+
+.errorValidation{
+    color: red;
+    font-size: 15px;
 }

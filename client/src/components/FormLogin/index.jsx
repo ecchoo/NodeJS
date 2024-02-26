@@ -1,10 +1,13 @@
-import { useDispatch } from 'react-redux'
-import styles from './styles.module.css'
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { login } from '@/api/auth'
 import { setActiveForm, setIsOpen } from '@/store/reducers/AuthModal'
 import { AUTH_FORMS } from '@/constants/authForms'
 import { setUser } from '@/store/reducers'
+import styles from './styles.module.css'
+import { Input } from '../Input'
+import { StatusCodes } from 'http-status-codes'
+import { convertErrorsValidation } from '@/utils/convertErrorsValidation'
 
 export const FormLogin = () => {
     const dispatch = useDispatch()
@@ -14,13 +17,22 @@ export const FormLogin = () => {
         password: ''
     })
 
+    const [errorsValidation, setErrorsValidation] = useState()
+
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-        const data = await login(loginData)
-        console.log('Login data', data.token)
-        dispatch(setIsOpen(false))
-        dispatch(setUser(data))
+        try {
+            const user = await login(loginData)
+            dispatch(setIsOpen(false))
+            dispatch(setUser(user))
+        } catch (err) {
+            if (err.response.status === StatusCodes.UNPROCESSABLE_ENTITY) {
+                const convertedErrors = convertErrorsValidation(err.response.data.errors)
+                setErrorsValidation(convertedErrors)
+            }
+        }
+
     }
 
     const handleChangeInput = (e) => {
@@ -38,14 +50,22 @@ export const FormLogin = () => {
         <form className={styles.form} onSubmit={handleSubmit}>
             <h1 className={styles.headerForm}>Login</h1>
             <div className={styles.inputs}>
-                <div className={styles.inputBox}>
-                    <input onChange={handleChangeInput} type="email" name="email" id="email" className={styles.input} placeholder=" " />
-                    <label htmlFor="email" className={styles.flyingPlaceholder}>Email</label>
-                </div>
-                <div className={styles.inputBox}>
-                    <input onChange={handleChangeInput} type="password" name="password" id="password" className={styles.input} placeholder=" " />
-                    <label htmlFor="password" className={styles.flyingPlaceholder}>Password</label>
-                </div>
+                <Input
+                    type='email'
+                    name='email'
+                    placeholder='Email'
+                    value={loginData.email}
+                    onChange={handleChangeInput}
+                    errorValidation={errorsValidation?.email}
+                />
+                <Input
+                    type='password'
+                    name='password'
+                    placeholder='Password'
+                    value={loginData.password}
+                    onChange={handleChangeInput}
+                    errorValidation={errorsValidation?.password}
+                />
             </div>
             <button className={styles.btnSubmit} type="submit">Login</button>
             <button onClick={handleClickRegister} className={styles.register}>Register</button>

@@ -1,0 +1,18 @@
+.products {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.btnCreate {
+    align-self: flex-end;
+    padding: 10px 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    background: linear-gradient(269.02deg, #945204 12.74%, #FF9A24 100.39%);
+    color: #262627;
+    transition: all .2s ease-in-out;
+    font-size: 18px;
+}

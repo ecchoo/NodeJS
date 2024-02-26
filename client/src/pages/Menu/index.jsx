@@ -4,21 +4,22 @@ import styles from './styles.module.css'
 import { CardProduct } from "@/components/CardProduct"
 import { useFetchProductsQuery } from "@/api"
 
-export const Menu = ({ params }) => {
+export const Menu = () => {
+    console.log('menu')
     const { category } = useParams()
-    console.log(category)
     const { data: products, isLoading } = useFetchProductsQuery({ category: category })
-
+    console.log('after query')
     if (!isLoading) {
         console.log(products)
     }
+
+    console.log('After if')
 
     return (
         <>
             <section>
                 <div className={styles.container}>
                     <ul className={styles.listTypesFood}>
-                        <li><Link to={MENU.replace(':category', 'all')}>All</Link></li>
                         <li><Link to={MENU.replace(':category', 'pizza')}>Pizza</Link></li>
                         <li><Link to={MENU.replace(':category', 'drinks')}>Drinks</Link></li>
                         <li><Link to={MENU.replace(':category', 'sauces')}>Sauces</Link></li>
