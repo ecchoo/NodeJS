@@ -25,15 +25,6 @@ export const CardProduct = ({ product }) => {
         }
 
         await addToBasket(token, product.id, countProduct)
-        // console.log(productsBasket)
-        // const isExistProductInBasket = productsBasket.some(pr => pr.id == product.id)
-        // console.log(isExistProductInBasket)
-
-        // if(isExistProductInBasket){
-        //     dispatch(changeCountProduct({ productId: product.id, valueCount: 1 }))
-        // } else {
-        //     dispatch(addProductToBasket({...product, count}))
-        // }
     };
 
     const handleClickPlus = () => {

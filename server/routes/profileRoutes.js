@@ -1,7 +1,10 @@
 const express = require('express')
 const { authenticateUser } = require('../middlewares/auth')
 const { updateAddress, index, createAddress, updatePersonalData } = require('../controllers/profileController')
-const { updateAddressValidation, createAddressValidation, updatePersonalDataValidation } = require('../requests/profile')
+
+const { createAddressValidation } = require('../requests/Profile/createAddress')
+const { updateAddressValidation } = require('../requests/Profile/updateAddress')
+const { updatePersonalDataValidation } = require('../requests/Profile/updatePersonalData')
 
 const basketRouter = express.Router()
 
