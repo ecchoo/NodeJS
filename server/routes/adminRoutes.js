@@ -22,8 +22,11 @@ const { updateProductValidation } = require('../requests/Admin/Product/update')
 
 const { createCategoryValidation } = require('../requests/Admin/Category/create')
 const { updateCategoryValidation } = require('../requests/Admin/Category/update')
+const { admin } = require('../middlewares/admin')
 
 const adminRouter = express.Router()
+
+adminRouter.use(admin)
 
 adminRouter.get('/products/', listProducts)
 adminRouter.get('/product/', indexProduct)

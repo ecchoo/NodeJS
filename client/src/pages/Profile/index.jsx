@@ -4,8 +4,8 @@ import { FormPersonalData } from '@/components/FormPersonalData'
 import { useNavigate } from 'react-router-dom'
 import { HOME } from '@/constants/routes'
 import { useDispatch, useSelector } from 'react-redux'
-import { logoutUser } from '@/store/reducers'
-import { useState } from 'react'
+import { logoutUser, setAddress } from '@/store/reducers'
+import { useEffect, useState } from 'react'
 import { PROFILE_SECTIONS } from '@/constants/profileSections'
 import { useFetchProfileQuery } from '@/api'
 import { CardDelivery } from '@/components/CardDelivery'
@@ -15,6 +15,12 @@ export const Profile = () => {
     const navigate = useNavigate()
 
     const { data: userData, isLoading } = useFetchProfileQuery()
+
+    useEffect(() => {
+        if (!isLoading && userData.address) {
+            dispatch(setAddress(userData.address))
+        }
+    }, [isLoading])
 
     const [section, setSection] = useState(PROFILE_SECTIONS.EDIT)
 

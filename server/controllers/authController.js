@@ -15,12 +15,15 @@ exports.register = async (req, res) => {
         const { name, password, email } = req.body
         const user = await registerUser({ name, password, email })
         
+        console.log(user.role)
+
         const payload = {
-            id: user.id
+            id: user.id,
+            role: user.role
         }
         const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '7d' })
         req.session.user = user
-        console.log('User id session', req.session.user.id)
+        // console.log('User id session', req.session.user.id)
         res.status(StatusCodes.CREATED).json({...user.dataValues, token})
     } catch (err) {
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: err.message })

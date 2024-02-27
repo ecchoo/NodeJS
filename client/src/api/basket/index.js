@@ -5,11 +5,11 @@ import axios from 'axios'
 //     reducerPath: 'basketApi',
 //     baseQuery: fetchBaseQuery({
 //         baseUrl: process.env.REACT_APP_API_URL,
-//         prepareHeaders: (headers, { getState }) => {
-//             headers.set('Content-Type', 'application/json');
-//             headers.set('Authorization', `Bearer ${getState().user.token}`);
-//             return headers;
-//         },
+        // prepareHeaders: (headers, { getState }) => {
+        //     headers.set('Content-Type', 'application/json');
+        //     headers.set('Authorization', `Bearer ${getState().user.token}`);
+        //     return headers;
+        // },
 //     }),
 //     endpoints: (builder) => ({
 //         fetchBasket: builder.query({
@@ -64,6 +64,16 @@ export const deleteProductBasket = async (token, productId) => {
         data: {
             productId
         },
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
+
+    return data
+}
+
+export const order = async (token) => {
+    const { data } = await axios.post(`${process.env.REACT_APP_API_URL}/order`, {}, {
         headers: {
             'Authorization': `Bearer ${token}`
         }

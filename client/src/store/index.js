@@ -1,5 +1,6 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import userReducer from './reducers/User'
+import addressReducer from './reducers/Address'
 import basketReducer from './reducers/Basket'
 import authModalReducer from './reducers/AuthModal'
 import modalCreateProductReducer from './reducers/ModalCreateProduct'
@@ -29,6 +30,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
     user: userReducer,
+    address: addressReducer,
     basket: basketReducer,
     authModal: authModalReducer,
     modalCreateProduct: modalCreateProductReducer,

@@ -10,3 +10,27 @@ body {
     /* font-family: 'Ubuntu-Title', sans-serif; */
     color: #fff;
 }
+
+:where(.css-dev-only-do-not-override-1xg9z9n).ant-pagination .ant-pagination-item a {
+    color: #FFFFFF;
+}
+
+:where(.css-dev-only-do-not-override-1xg9z9n).ant-pagination .ant-pagination-disabled .ant-pagination-item-link,
+:where(.css-dev-only-do-not-override-1xg9z9n).ant-pagination .ant-pagination-disabled:hover .ant-pagination-item-link {
+    color: #FFFFFF;
+}
+
+:where(.css-dev-only-do-not-override-1xg9z9n).ant-pagination .ant-pagination-prev .ant-pagination-item-link,
+:where(.css-dev-only-do-not-override-1xg9z9n).ant-pagination .ant-pagination-next .ant-pagination-item-link {
+    color: #FFFFFF;
+}
+
+:where(.css-dev-only-do-not-override-1xg9z9n).ant-pagination .ant-pagination-item-active {
+    background: linear-gradient(269.02deg, #945204 12.74%, #FF9A24 100.39%);
+    border: 0px;
+}
+
+:where(.css-dev-only-do-not-override-1xg9z9n).ant-pagination .ant-pagination-jump-prev .ant-pagination-item-container .ant-pagination-item-ellipsis,
+:where(.css-dev-only-do-not-override-1xg9z9n).ant-pagination .ant-pagination-jump-next .ant-pagination-item-container .ant-pagination-item-ellipsis {
+    color: #FFFFFF;
+}

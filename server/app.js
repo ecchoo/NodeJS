@@ -5,6 +5,7 @@ const basketRouter = require("./routes/basketRoutes");
 const authRouter = require('./routes/authRoutes')
 const profileRouter = require('./routes/profileRoutes')
 const adminRouter = require('./routes/adminRoutes')
+const orderRouter = require('./routes/orderRoutes')
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -39,6 +40,7 @@ app.use('/api/basket', basketRouter)
 app.use('/api/auth', authRouter)
 app.use('/api/profile', profileRouter)
 app.use('/api/admin', adminRouter)
+app.use('/api/order', orderRouter)
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);

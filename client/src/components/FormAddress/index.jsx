@@ -1,35 +1,51 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './styles.module.css';
 import { createAddress, updateAddress, useFetchProfileQuery } from '@/api';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Input } from '../Input';
 import { StatusCodes } from 'http-status-codes';
 import { convertErrorsValidation } from '@/utils/convertErrorsValidation';
+import { setAddress } from '@/store/reducers';
 
-export const FormAddress = ({ initialAddress }) => {
-    const { user: { token } } = useSelector(state => state)
+export const FormAddress = () => {
+    const dispatch = useDispatch()
+    const {
+        user: { token },
+        address
+    } = useSelector(state => state)
 
-    const [address, setAddress] = useState(initialAddress || {
-        city: null,
-        street: null,
-        numberHouse: null,
-        building: null,
-        structure: null,
-        fraction: null,
-        numberApartament: null
-    })
+    const [newAddress, setNewAddress] = useState()
 
     const [errorsValidation, setErrorsValidation] = useState()
 
+    useEffect(() => {
+        if (address) {
+            console.log(address)
+            setNewAddress(address)
+        } else {
+            setNewAddress({
+                city: null,
+                street: null,
+                numberHouse: null,
+                building: null,
+                structure: null,
+                fraction: null,
+                numberApartament: null
+            })
+        }
+    }, [address])
+
     const handleSubmit = async (e) => {
         e.preventDefault()
-        
+
         try {
-            if (!initialAddress) {
-                return await createAddress({ ...address, token })
+            if (Object.values(address).every(value => value === null)) {
+                await createAddress({ ...newAddress, token })
+            } else {
+                await updateAddress({ ...newAddress, token })
             }
 
-            return await updateAddress({ ...address, token })
+            dispatch(setAddress(newAddress))
         } catch (err) {
             if (err.response.status === StatusCodes.UNPROCESSABLE_ENTITY) {
                 const convertedErrors = convertErrorsValidation(err.response.data.errors)
@@ -46,8 +62,8 @@ export const FormAddress = ({ initialAddress }) => {
             value = null
         }
 
-        setAddress({
-            ...address,
+        setNewAddress({
+            ...newAddress,
             [e.target.name]: value
         })
     }
@@ -60,7 +76,7 @@ export const FormAddress = ({ initialAddress }) => {
                     name="city"
                     type='text'
                     placeholder='City'
-                    value={address?.city}
+                    value={newAddress?.city}
                     onChange={handleChangeInput}
                     errorValidation={errorsValidation?.city}
                 />
@@ -68,7 +84,7 @@ export const FormAddress = ({ initialAddress }) => {
                     name="street"
                     type='text'
                     placeholder='Street'
-                    value={address?.street}
+                    value={newAddress?.street}
                     onChange={handleChangeInput}
                     errorValidation={errorsValidation?.street}
                 />
@@ -76,7 +92,7 @@ export const FormAddress = ({ initialAddress }) => {
                     name="numberHouse"
                     type='text'
                     placeholder='Number house'
-                    value={address?.numberHouse}
+                    value={newAddress?.numberHouse}
                     onChange={handleChangeInput}
                     errorValidation={errorsValidation?.numberHouse}
                 />
@@ -85,7 +101,7 @@ export const FormAddress = ({ initialAddress }) => {
                         name="building"
                         type='text'
                         placeholder='Building'
-                        value={address?.building}
+                        value={newAddress?.building}
                         onChange={handleChangeInput}
                         errorValidation={errorsValidation?.building}
                     />
@@ -93,7 +109,7 @@ export const FormAddress = ({ initialAddress }) => {
                         name="structure"
                         type='text'
                         placeholder='Structure'
-                        value={address?.structure}
+                        value={newAddress?.structure}
                         onChange={handleChangeInput}
                         errorValidation={errorsValidation?.structure}
                     />
@@ -101,7 +117,7 @@ export const FormAddress = ({ initialAddress }) => {
                         name="fraction"
                         type='text'
                         placeholder='Fraction'
-                        value={address?.fraction}
+                        value={newAddress?.fraction}
                         onChange={handleChangeInput}
                         errorValidation={errorsValidation?.fraction}
                     />
@@ -110,7 +126,7 @@ export const FormAddress = ({ initialAddress }) => {
                     name="numberApartament"
                     type='text'
                     placeholder='Number apartament'
-                    value={address?.numberApartament}
+                    value={newAddress?.numberApartament}
                     onChange={handleChangeInput}
                     errorValidation={errorsValidation?.numberApartament}
                 />

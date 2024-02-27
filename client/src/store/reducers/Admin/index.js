@@ -1,9 +1,11 @@
+import { ADMIN_TABLES } from "@/constants/adminTables";
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     products: [],
     categories: [],
-    users: []
+    users: [],
+    activeTable: ADMIN_TABLES.PRODUCTS
 };
 
 const adminProductsSlice = createSlice({
@@ -38,22 +40,26 @@ const adminProductsSlice = createSlice({
             state.categories = state.categories.filter(category => category.id != action.payload)
         },
 
-        setUsers(state, action){
+        setUsers(state, action) {
             state.users = action.payload
+        },
+        setActiveTable(state, action) {
+            state.activeTable = action.payload
         }
     }
 });
 
-export const { 
-    setProducts, 
-    addProduct, 
-    editProduct, 
+export const {
+    setProducts,
+    addProduct,
+    editProduct,
     removeProduct,
-    setCategories, 
-    addCategory, 
-    editCategory, 
+    setCategories,
+    addCategory,
+    editCategory,
     removeCategory,
-    setUsers
+    setUsers,
+    setActiveTable,
 } = adminProductsSlice.actions;
 
 export default adminProductsSlice.reducer;

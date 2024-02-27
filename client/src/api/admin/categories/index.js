@@ -3,7 +3,14 @@ import axios from 'axios'
 
 export const adminCategoriesApi = createApi({
     reducerPath: 'adminCategoriesApi',
-    baseQuery: fetchBaseQuery({ baseUrl: process.env.REACT_APP_API_URL }),
+    baseQuery: fetchBaseQuery({
+        baseUrl: process.env.REACT_APP_API_URL,
+        prepareHeaders: (headers, { getState }) => {
+            headers.set('Content-Type', 'application/json');
+            headers.set('Authorization', `Bearer ${getState().user.token}`);
+            return headers;
+        },
+    }),
     endpoints: (builder) => ({
         fetchAdminCategories: builder.query({
             query: (params) => ({

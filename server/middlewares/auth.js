@@ -11,8 +11,9 @@ exports.authenticateUser = async (req, res, next) => {
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET)
         req.userId = decoded.id
+        console.log(decoded.id, decoded.role)
         next()
     } catch (error) {
-        return res.status(StatusCodes.FORBIDDEN).json({ error: 'Forbidden middleware' })
+        return res.status(StatusCodes.FORBIDDEN).json({ error: 'Forbidden' })
     }
 }

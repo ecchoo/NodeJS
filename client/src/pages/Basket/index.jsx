@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { CardBasket } from '@/components/CardBasket'
-import { getBasket } from "@/api"
+import { deleteProductBasket, getBasket, order } from "@/api"
 import styles from './styles.module.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { setProductsBasket } from '@/store/reducers'
@@ -13,9 +13,18 @@ export const Basket = () => {
         user: { token }
     } = useSelector(state => state)
 
-    const totalPriceBasket = productsBasket && productsBasket.reduce((totalPrice, productBasket) => {
+    const totalPriceBasket = productsBasket.length && productsBasket.reduce((totalPrice, productBasket) => {
         return totalPrice + productBasket.price * productBasket.count
-    }, 0)
+    }, 0) || 0
+
+    const handleClickOrder = async () => {
+        try{
+            const result = await order(token)
+            dispatch(setProductsBasket(result))
+        }catch(err){
+            console.error(err)
+        }
+    }
 
     useEffect(() => {
         const fetchBasket = async () => {
@@ -32,11 +41,13 @@ export const Basket = () => {
                 <div className={styles.basket}>
                     <h1 className={styles.headerBasket}>Basket</h1>
                     <div className={styles.productsBasket}>
-                        {productsBasket && productsBasket.map(productBasket =>
+                        {productsBasket.length ? productsBasket.map(productBasket =>
                             <CardBasket
                                 key={productBasket.id}
                                 productBasket={productBasket}
                             />
+                        ): (
+                            <span>Корзина пуста, перейдите в меню</span>
                         )}
                     </div>
                     <div className={styles.totalPriceBasket}>
@@ -45,6 +56,7 @@ export const Basket = () => {
                             {totalPriceBasket} $
                         </span>
                     </div>
+                    { productsBasket.length ? <button onClick={handleClickOrder} className={styles.order}>Order</button>: null}
                 </div>
             </div>
         </section>

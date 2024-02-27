@@ -1,3 +1,14 @@
 .container{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
     padding: 50px;
+}
+
+.boxSelect{
+    align-self: flex-end;
+}
+
+:where(.css-dev-only-do-not-override-1xg9z9n).ant-pagination .ant-pagination-item a{
+    color: #FFFFFF;
 }
