@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 // import SocialMediaIcons from './SocialMediaIcons'
 import styles from './styles.module.css'
 import { Logo } from '../Logo'
+import { SocialMediaIcons } from '../SocialIcons'
 
 export const Footer = () => {
     return (
@@ -20,7 +21,7 @@ export const Footer = () => {
                     </ul>
                 </nav>
                 <div className='social-media-icons'>
-                    {/* <SocialMediaIcons /> */}
+                    <SocialMediaIcons />
                 </div>
             </div>
         </footer>
