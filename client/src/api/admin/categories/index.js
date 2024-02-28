@@ -29,26 +29,37 @@ export const adminCategoriesApi = createApi({
 
 export const { useFetchAdminCategoriesQuery, useFetchAdminCategoryByIdQuery } = adminCategoriesApi
 
-export const createCategory = async (category) => {
+export const createCategory = async (token, category) => {
     const { data } = await axios.post(`${process.env.REACT_APP_API_URL}/admin/category/create`, {
         ...category
+    }, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
     })
 
     return data
 }
 
-export const updateCategory = async (category) => {
+export const updateCategory = async (token, category) => {
     const { data } = await axios.put(`${process.env.REACT_APP_API_URL}/admin/category/update`, {
         ...category
+    }, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
     })
 
     return data
 }
 
-export const deleteCategory = async (categoryId) => {
+export const deleteCategory = async (token, categoryId) => {
     const { data } = await axios.delete(`${process.env.REACT_APP_API_URL}/admin/category/delete`, {
         data: {
             categoryId
+        },
+        headers: {
+            'Authorization': `Bearer ${token}`
         }
     })
 

@@ -1,0 +1,87 @@
+.select {
+    position: relative;
+}
+
+.selectControl {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    column-gap: 20px;
+    padding: 10px;
+    color: #000;
+    cursor: pointer;
+    border: 2px solid rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+}
+
+.selectControl.show {
+    border-radius: 10px 10px 0px 0px;
+}
+
+.valueControl {
+    font-size: 18px;
+    color: #262627;
+}
+
+.iconControl {
+    width: 15px;
+    transition: all .2s ease-in-out;
+}
+
+.iconControl.rotate{
+    transform: rotate(180deg);
+}
+
+.selectDrop {
+    width: 100%;
+    max-height: 194px;
+    position: absolute;
+    background-color: #fff;
+    border-radius: 0px 0px 10px 10px;
+    opacity: 0;
+    z-index: -1;
+    border: 2px solid rgba(0, 0, 0, 0.5);
+    border-top: 0px;
+    transition: all .2s ease-in-out;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.selectDrop.showDrop {
+    opacity: 1;
+    z-index: 2;
+}
+
+.itemsSelectDrop {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    max-height: 194px;
+    overflow-y: auto;
+    background-color: transparent;
+}
+
+.itemsSelectDrop::-webkit-scrollbar {
+    width: 4px;
+}
+
+.itemsSelectDrop::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.itemSelectDrop {
+    font-size: 18px;
+    padding: 5px 15px;
+    color: #262627;
+    width: 100%;
+    cursor: pointer;
+}
+
+.itemSelectDrop.selectedItem {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.itemSelectDrop:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}

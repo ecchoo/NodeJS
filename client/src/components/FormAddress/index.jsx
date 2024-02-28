@@ -6,6 +6,7 @@ import { Input } from '../Input';
 import { StatusCodes } from 'http-status-codes';
 import { convertErrorsValidation } from '@/utils/convertErrorsValidation';
 import { setAddress } from '@/store/reducers';
+import { toast } from 'react-toastify';
 
 export const FormAddress = () => {
     const dispatch = useDispatch()
@@ -41,8 +42,10 @@ export const FormAddress = () => {
         try {
             if (Object.values(address).every(value => value === null)) {
                 await createAddress({ ...newAddress, token })
+                toast('Адрес успешно добавлен')
             } else {
                 await updateAddress({ ...newAddress, token })
+                toast('Адрес успешно изменен')
             }
 
             dispatch(setAddress(newAddress))
@@ -50,7 +53,10 @@ export const FormAddress = () => {
             if (err.response.status === StatusCodes.UNPROCESSABLE_ENTITY) {
                 const convertedErrors = convertErrorsValidation(err.response.data.errors)
                 setErrorsValidation(convertedErrors)
-            }
+                return
+            } 
+
+            return toast('При обновлении адреса произошла ошибка')
         }
 
     }

@@ -7,6 +7,7 @@ import { addToBasket } from '@/api/basket'
 import { useDispatch, useSelector } from "react-redux";
 import { addProductToBasket, changeCountProduct } from "@/store/reducers";
 import { useAuth } from "@/hooks/useAuth";
+import { toast } from "react-toastify";
 
 export const CardProduct = ({ product }) => {
     const dispatch = useDispatch()
@@ -14,17 +15,22 @@ export const CardProduct = ({ product }) => {
 
     const { isAuth } = useAuth()
 
-    const { 
-        user: { token }, 
+    const {
+        user: { token },
         basket: { productsBasket }
     } = useSelector(state => state)
 
     const handleClickAddToBasket = async () => {
-        if(!isAuth){
+        if (!isAuth) {
             return console.log('Need login')
         }
 
-        await addToBasket(token, product.id, countProduct)
+        try {
+            await addToBasket(token, product.id, countProduct)
+            toast('Товар добавлен в корзину')
+        } catch (err) {
+            
+        }
     };
 
     const handleClickPlus = () => {

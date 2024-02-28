@@ -7,5 +7,8 @@ exports.createProductValidation = () => {
         body('photo').notEmpty().isString().withMessage('Photo is required and should be a string'),
         body('composition').notEmpty().isString().withMessage('Compositoion is required and should be a string'),
         body('category').notEmpty().isString().withMessage('Category is required and should be a string'),
+        body('photo')
+            .notEmpty().withMessage('Photo is required')
+            .matches(/\.(png|jpg|jpeg)$/).withMessage('Photo should have a valid extension (.png, .jpg, .jpeg)'),
     ]
 };

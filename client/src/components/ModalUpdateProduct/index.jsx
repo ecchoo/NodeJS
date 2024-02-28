@@ -3,21 +3,38 @@ import { Modal } from "antd"
 import { useDispatch, useSelector } from "react-redux"
 import styles from './styles.module.css'
 import { useEffect, useState } from "react"
-import { updateProduct, useFetchAdminProductByIdQuery } from "@/api"
+import { updateProduct, useFetchAdminCategoriesQuery } from "@/api"
 import { editProduct } from "@/store/reducers/Admin"
+import { Select } from "../Select"
+import { Input } from "../Input"
+import { UploadOutlined } from '@ant-design/icons';
+import { StatusCodes } from "http-status-codes"
+import { convertErrorsValidation } from "@/utils/convertErrorsValidation"
+import { toast } from "react-toastify"
+
 
 export const ModalUpdateProduct = () => {
     const dispatch = useDispatch()
+    const { data, isLoading } = useFetchAdminCategoriesQuery()
+
+    const selectCategoryOptions = !isLoading && data.map(category => ({
+        value: category.name,
+        label: `${category.name.slice(0, 1).toUpperCase()}${category.name.slice(1)}`
+    }))
     const {
         modalUpdateProduct: {
             isOpen, productId
         },
         admin: {
             products
+        },
+        user: {
+            token
         }
     } = useSelector(state => state)
 
     const initialProduct = products.find(product => product.id === productId)
+
 
     useEffect(() => {
         if (initialProduct) {
@@ -27,6 +44,7 @@ export const ModalUpdateProduct = () => {
 
 
     const [product, setProduct] = useState()
+    const [errorsValidation, setErrorsValidation] = useState()
 
     const handleCancel = () => {
         dispatch(setIsOpenModalUpdateProduct(false))
@@ -39,79 +57,104 @@ export const ModalUpdateProduct = () => {
         })
     }
 
+    const handleChangeSelect = (category) => {
+        setProduct({
+            ...product,
+            category
+        })
+    }
+
+    const handleSelectPhoto = (e) => {
+        const file = e.target.files[0]
+        if (!file) return
+
+        setProduct({
+            ...product,
+            photo: file.name
+        })
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault()
 
         try {
-            await updateProduct(product)
+            await updateProduct(token, product)
             dispatch(setIsOpenModalUpdateProduct(false))
             dispatch(editProduct(product))
+            setErrorsValidation({})
+
+            toast('Продукт успешно обновлен')
         } catch (err) {
+            if (err?.response?.status === StatusCodes.UNPROCESSABLE_ENTITY) {
+                const convertedErrors = convertErrorsValidation(err.response.data.errors)
+                setErrorsValidation(convertedErrors)
+                return
+            }
+
+            toast('Не удалось обновить продукт')
             console.log(err)
         }
     }
 
     return (
-        <Modal open={isOpen} onCancel={handleCancel} footer={null}>
-            {/* {
-                !isLoading ? (
+        <>
+            {!isLoading ? (
+                <Modal open={isOpen} onCancel={handleCancel} footer={null}>
                     <form className={styles.form} onSubmit={handleSubmit}>
                         <h1 className={styles.headerForm}>Update product</h1>
                         <div className={styles.inputs}>
-                            <div className={styles.inputBox}>
-                                <input value={product?.name} onChange={handleChangeInput} type="text" name="name" id="name" className={styles.input} placeholder=" " />
-                                <label htmlFor="name" className={styles.flyingPlaceholder}>Name</label>
-                            </div>
-                            <div className={styles.inputBox}>
-                                <input value={product?.price} onChange={handleChangeInput} type="text" name="price" id="price" className={styles.input} placeholder=" " />
-                                <label htmlFor="price" className={styles.flyingPlaceholder}>Price</label>
-                            </div>
-                            <div className={styles.inputBox}>
-                                <input value={product?.composition} onChange={handleChangeInput} type="text" name="composition" id="composition" className={styles.input} placeholder=" " />
-                                <label htmlFor="composition" className={styles.flyingPlaceholder}>Composition</label>
-                            </div>
-                            <div className={styles.inputBox}>
-                                <input value={product?.category} onChange={handleChangeInput} type="text" name="category" id="category" className={styles.input} placeholder=" " />
-                                <label htmlFor="category" className={styles.flyingPlaceholder}>Category</label>
-                            </div>
-                            <div className={styles.inputBox}>
-                                <input value={product?.photo} onChange={handleChangeInput} type="text" name="photo" id="photo" className={styles.input} placeholder=" " />
-                                <label htmlFor="photo" className={styles.flyingPlaceholder}>Photo</label>
+                            <Input
+                                type='text'
+                                name='name'
+                                placeholder='Name'
+                                value={product?.name}
+                                onChange={handleChangeInput}
+                                errorValidation={errorsValidation?.name}
+                            />
+                            <Input
+                                type='text'
+                                name='price'
+                                placeholder='Price'
+                                value={product?.price}
+                                onChange={handleChangeInput}
+                                errorValidation={errorsValidation?.price}
+                            />
+                            <Input
+                                type='text'
+                                name='composition'
+                                placeholder='Composition'
+                                value={product?.composition}
+                                onChange={handleChangeInput}
+                                errorValidation={errorsValidation?.composition}
+                            />
+                            <Select
+                                label='Category'
+                                options={selectCategoryOptions}
+                                onChange={handleChangeSelect}
+                                defaultValue={product?.category}
+                            />
+                            <div>
+                                <input
+                                    onChange={handleSelectPhoto}
+                                    type="file"
+                                    name="photo"
+                                    id="photo"
+                                    className={styles.uploadPhoto}
+                                    accept="image/*"
+                                />
+                                <label htmlFor="photo" className={styles.labelUploadPhoto}>
+                                    Select photo
+                                    <UploadOutlined />
+                                </label>
                             </div>
                         </div>
                         <button type="submit" className={styles.btnSubmit}>Submit</button>
                     </form>
-                ) : (
-                    <span>Loading</span>
-                )
-            } */}
+                </Modal>
+            ) : (
+                null
+            )}
+        </>
 
-            <form className={styles.form} onSubmit={handleSubmit}>
-                <h1 className={styles.headerForm}>Update product</h1>
-                <div className={styles.inputs}>
-                    <div className={styles.inputBox}>
-                        <input value={product?.name} onChange={handleChangeInput} type="text" name="name" id="name" className={styles.input} placeholder=" " />
-                        <label htmlFor="name" className={styles.flyingPlaceholder}>Name</label>
-                    </div>
-                    <div className={styles.inputBox}>
-                        <input value={product?.price} onChange={handleChangeInput} type="text" name="price" id="price" className={styles.input} placeholder=" " />
-                        <label htmlFor="price" className={styles.flyingPlaceholder}>Price</label>
-                    </div>
-                    <div className={styles.inputBox}>
-                        <input value={product?.composition} onChange={handleChangeInput} type="text" name="composition" id="composition" className={styles.input} placeholder=" " />
-                        <label htmlFor="composition" className={styles.flyingPlaceholder}>Composition</label>
-                    </div>
-                    <div className={styles.inputBox}>
-                        <input value={product?.category} onChange={handleChangeInput} type="text" name="category" id="category" className={styles.input} placeholder=" " />
-                        <label htmlFor="category" className={styles.flyingPlaceholder}>Category</label>
-                    </div>
-                    <div className={styles.inputBox}>
-                        <input value={product?.photo} onChange={handleChangeInput} type="text" name="photo" id="photo" className={styles.input} placeholder=" " />
-                        <label htmlFor="photo" className={styles.flyingPlaceholder}>Photo</label>
-                    </div>
-                </div>
-                <button type="submit" className={styles.btnSubmit}>Submit</button>
-            </form>
-        </Modal>
     )
 }

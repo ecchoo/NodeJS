@@ -29,26 +29,37 @@ export const adminProductsApi = createApi({
 
 export const { useFetchAdminProductsQuery, useFetchAdminProductByIdQuery } = adminProductsApi
 
-export const createProduct = async (product) => {
+export const createProduct = async (token, product) => {
     const { data } = await axios.post(`${process.env.REACT_APP_API_URL}/admin/product/create`, {
         ...product
+    }, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
     })
 
     return data
 }
 
-export const updateProduct = async (product) => {
+export const updateProduct = async (token, product) => {
     const { data } = await axios.put(`${process.env.REACT_APP_API_URL}/admin/product/update`, {
         ...product
+    }, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
     })
 
     return data
 }
 
-export const deleteProduct = async (productId) => {
+export const deleteProduct = async (token, productId) => {
     const { data } = await axios.delete(`${process.env.REACT_APP_API_URL}/admin/product/delete`, {
         data: {
             productId
+        },
+        headers: {
+            'Authorization': `Bearer ${token}`
         }
     })
 

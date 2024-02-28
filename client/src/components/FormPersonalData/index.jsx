@@ -6,6 +6,7 @@ import { setPersonalDataUser } from '@/store/reducers'
 import { StatusCodes } from 'http-status-codes'
 import { convertErrorsValidation } from '@/utils/convertErrorsValidation'
 import { Input } from '../Input'
+import { toast } from 'react-toastify'
 
 export const FormPersonalData = () => {
     const dispatch = useDispatch()
@@ -24,11 +25,16 @@ export const FormPersonalData = () => {
         try {
             await updatePersonalData({ ...personalData, token })
             dispatch(setPersonalDataUser(personalData))
+
+            toast('Личные данные успешно обновленны')
         } catch (err) {
             if (err.response.status === StatusCodes.UNPROCESSABLE_ENTITY) {
                 const convertedErrors = convertErrorsValidation(err.response.data.errors)
                 setErrorsValidation(convertedErrors)
+                return
             }
+
+            return toast('Не удалось обновить личные данные')
         }
     }
 

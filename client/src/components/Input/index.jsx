@@ -2,7 +2,7 @@ import styles from './styles.module.css'
 
 export const Input = ({ type, name, placeholder, value, onChange, errorValidation }) => {
     return (
-        <div>
+        <div className={styles.containerInput}>
             <div className={styles.inputBox}>
                 <input
                     value={value}

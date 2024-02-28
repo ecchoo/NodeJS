@@ -74,3 +74,13 @@
     pointer-events: none;
     transition: .3s ease-in-out;
 }
+
+.uploadPhoto{
+    display: none !important;
+}
+
+.labelUploadPhoto{
+    display: flex;
+    gap: 10px;
+    font-size: 18px;
+}

@@ -26,11 +26,12 @@ exports.create = async (req, res) => {
     try {
         const errorsValidation = validationResult(req)
         if (!errorsValidation.isEmpty()) {
-            res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({ errors: errorsValidation.array() })
+            return res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({ errors: errorsValidation.array() })
         }
 
+        console.log('req body', req.body)
         const { name } = req.body
-
+        console.log('Name category', name)
         const newCategory = await createCategory({ name })
 
         res.status(StatusCodes.CREATED).json(newCategory)
@@ -43,7 +44,7 @@ exports.update = async (req, res) => {
     try {
         const errorsValidation = validationResult(req)
         if (!errorsValidation.isEmpty()) {
-            res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({ errors: errorsValidation.array() })
+            return res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({ errors: errorsValidation.array() })
         }
 
         const { id, name } = req.body

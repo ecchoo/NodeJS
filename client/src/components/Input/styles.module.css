@@ -1,3 +1,7 @@
+.containerInput{
+    width: 100%;
+}
+
 .inputBox {
     position: relative;
     border-bottom: 2px solid rgba(0, 0, 0, 0.5);

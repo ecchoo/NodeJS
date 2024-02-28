@@ -5,6 +5,10 @@ import { useEffect, useState } from "react"
 import { updateCategory, useFetchAdminCategoryByIdQuery } from "@/api"
 import { editCategory } from "@/store/reducers"
 import { setIsOpenModalUpdateCategory } from "@/store/reducers/ModalUpdateCategory"
+import { StatusCodes } from "http-status-codes"
+import { convertErrorsValidation } from "@/utils/convertErrorsValidation"
+import { toast } from "react-toastify"
+import { Input } from "../Input"
 
 export const ModalUpdateCategory = () => {
     const dispatch = useDispatch()
@@ -14,6 +18,9 @@ export const ModalUpdateCategory = () => {
         },
         admin: {
             categories
+        },
+        user: {
+            token
         }
     } = useSelector(state => state)
 
@@ -26,6 +33,7 @@ export const ModalUpdateCategory = () => {
     }, [initialCategory]);
 
     const [category, setCategory] = useState()
+    const [errorsValidation, setErrorsValidation] = useState()
 
     const handleCancel = () => {
         dispatch(setIsOpenModalUpdateCategory(false))
@@ -42,41 +50,37 @@ export const ModalUpdateCategory = () => {
         e.preventDefault()
 
         try {
-            await updateCategory(category)
+            await updateCategory(token, category)
+
             dispatch(setIsOpenModalUpdateCategory(false))
             dispatch(editCategory(category))
+            setErrorsValidation({})
+
+            toast('Категория успешно обновлена')
         } catch (err) {
+            if (err?.response?.status === StatusCodes.UNPROCESSABLE_ENTITY) {
+                const convertedErrors = convertErrorsValidation(err.response.data.errors)
+                setErrorsValidation(convertedErrors)
+                return
+            }
+
+            toast('Не удалось обновить категорию')
             console.log(err)
         }
     }
 
     return (
         <Modal open={isOpen} onCancel={handleCancel} footer={null}>
-            {/* {
-                !isLoading ? (
-                    <form className={styles.form} onSubmit={handleSubmit}>
-                        <h1 className={styles.headerForm}>Update category</h1>
-                        <div className={styles.inputs}>
-                            <div className={styles.inputBox}>
-                                <input value={category?.name} onChange={handleChangeInput} type="text" name="name" id="name" className={styles.input} placeholder=" " />
-                                <label htmlFor="name" className={styles.flyingPlaceholder}>Name</label>
-                            </div>
-                        </div>
-                        <button type="submit" className={styles.btnSubmit}>Submit</button>
-                    </form>
-                ) : (
-                    <span>Loading</span>
-                )
-            } */}
-
             <form className={styles.form} onSubmit={handleSubmit}>
                 <h1 className={styles.headerForm}>Update category</h1>
-                <div className={styles.inputs}>
-                    <div className={styles.inputBox}>
-                        <input value={category?.name} onChange={handleChangeInput} type="text" name="name" id="name" className={styles.input} placeholder=" " />
-                        <label htmlFor="name" className={styles.flyingPlaceholder}>Name</label>
-                    </div>
-                </div>
+                <Input
+                    type='text'
+                    name='name'
+                    placeholder='Name'
+                    value={category?.name}
+                    onChange={handleChangeInput}
+                    errorValidation={errorsValidation?.name}
+                />
                 <button type="submit" className={styles.btnSubmit}>Submit</button>
             </form>
         </Modal>

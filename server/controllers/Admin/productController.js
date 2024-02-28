@@ -24,7 +24,7 @@ exports.create = async (req, res) => {
     try {
         const errorsValidation = validationResult(req)
         if (!errorsValidation.isEmpty()) {
-            res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({ errors: errorsValidation.array() })
+            return res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({ errors: errorsValidation.array() })
         }
 
         const {
@@ -47,7 +47,7 @@ exports.update = async (req, res) => {
     try {
         const errorsValidation = validationResult(req)
         if (!errorsValidation.isEmpty()) {
-            res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({ errors: errorsValidation.array() })
+            return res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({ errors: errorsValidation.array() })
         }
 
         const {

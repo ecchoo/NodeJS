@@ -1,5 +1,3 @@
-import { useState } from "react"
-import { ProductCounter } from "@/components/ProductCounter"
 import DeleteSvg from "@/components/svg/DeleteSvg"
 import styles from './styles.module.css'
 import { useDispatch, useSelector } from "react-redux"
@@ -7,6 +5,7 @@ import MinusSvg from "../svg/MinusSvg";
 import PlusSvg from "../svg/PlusSvg";
 import { changeCountProduct, deleteProduct } from "@/store/reducers"
 import { deleteProductBasket, updateCount } from "@/api"
+import { toast } from "react-toastify";
 
 export const CardBasket = ({ productBasket }) => {
     const dispatch = useDispatch()
@@ -17,9 +16,14 @@ export const CardBasket = ({ productBasket }) => {
         if (productBasket.count == 1) {
             return
         }
-
-        await updateCount(token, productBasket.id, -1)
-        dispatch(changeCountProduct({ productId: productBasket.id, valueCount: -1 }))
+        
+        try {
+            await updateCount(token, productBasket.id, -1)
+            dispatch(changeCountProduct({ productId: productBasket.id, valueCount: -1 }))
+        } catch (err) {
+            toast('При уменьшении количества произошла ошибка')
+            console.log(err)
+        }
     }
 
     const handleClickPlus = async () => {
@@ -27,8 +31,13 @@ export const CardBasket = ({ productBasket }) => {
             return
         }
 
-        await updateCount(token, productBasket.id, 1)
-        dispatch(changeCountProduct({ productId: productBasket.id, valueCount: 1 }))
+        try {
+            await updateCount(token, productBasket.id, 1)
+            dispatch(changeCountProduct({ productId: productBasket.id, valueCount: 1 }))
+        } catch (err) {
+            toast('При увеличении количества произошла ошибка')
+            console.log(err)
+        }
     }
 
     const handleClickDelete = async () => {

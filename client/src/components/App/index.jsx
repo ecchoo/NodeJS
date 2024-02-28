@@ -1,4 +1,5 @@
 import { BrowserRouter } from "react-router-dom"
+import { ToastContainer } from 'react-toastify'
 import { AppRouter } from '@/components/AppRouter'
 import { Header } from "@/components/Header"
 import { Footer } from "@/components/Footer"
@@ -13,6 +14,7 @@ import { ModalConfirmDeleteProduct } from "../ModalConfirmDeleteProduct"
 import { ModalCreateCategory } from "../ModalCreateCategory"
 import { ModalUpdateCategory } from "../ModalUpdateCategory"
 import { ModalConfirmDeleteCategory } from "../ModalConfirmDeleteCategory"
+import 'react-toastify/dist/ReactToastify.css'
 
 export const App = () => {
     return (
@@ -23,7 +25,7 @@ export const App = () => {
 
                     <ModalCreateProduct />
                     <ModalUpdateProduct />
-                    <ModalConfirmDeleteProduct />        
+                    <ModalConfirmDeleteProduct />
 
                     <ModalCreateCategory />
                     <ModalUpdateCategory />
@@ -31,9 +33,10 @@ export const App = () => {
 
                     <Header />
                     <AppRouter>
-                        
+
                     </AppRouter>
                     <Footer />
+                    <ToastContainer theme="dark" position="top-center" />
                 </BrowserRouter>
             </PersistGate>
         </Provider>
